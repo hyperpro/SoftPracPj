@@ -67,3 +67,4 @@ pkg
 *.pyc
 
 vio/bin
+.cache
