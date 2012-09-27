@@ -1,0 +1,12 @@
+$def with (video, user, page_info)
+$var title: $page_info.title
+
+<h2 id="video_name">$video.name</h2>
+<h4 id="owner">$user.name</h4>
+<video id="video" src="$video.src" controls="controls" width="640" height="358">Your browser does not support html5, chrome will work.</video>
+<p id="video_intro">$video.intro</p>
+
+<form action="/comment" method="post">
+	<textarea name="content"></textarea>
+	<input type="submit" value="Submit" />
+</form>

@@ -1,0 +1,9 @@
+$def with (page_info)
+$var title: $page_info.title
+
+<form action="/register" method="post">
+	mail<input type="text" name="username" /><br/>
+	pwd<input type="password" name="password" /><br/>
+	pwd again<input type="password" name="password_comfirm" /><br/>
+	<input type="submit" value="Register" />
+</form>

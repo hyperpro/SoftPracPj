@@ -1,0 +1,31 @@
+$def with (page)
+
+<!DOCTYPE HTML>
+<html lang="en">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		$if 'title' in page and page.title:
+			<title>$page.title - VideoShare</title>
+		$else:
+			<title>VideoShare</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<link rel="stylesheet" type="text/css" href="/static/css/global.css" />
+		$if 'css' in page and page.css:
+			<link rel="stylesheet" type="text/css" href="/static/css/$page.css" />
+
+		<script type="text/javascript" src="/static/js/add-on/jquery-1.8.0.min.js"></script>
+		<script type="text/javascript" src="/static/js/global.js"></script>
+	</head>
+
+	<body>
+		
+		$:page
+		
+		<footer class="align_center">
+		  Powered by ???
+		</footer>
+	</body>
+	$if 'js' in page and page.js:
+		<link rel="stylesheet" type="text/css" href="/static/css/$page.js" />
+</html>
