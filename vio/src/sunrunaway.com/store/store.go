@@ -22,6 +22,17 @@ func NewStore(root string) *Store {
 
 // =============================================================================
 
+func (s *Store) Check(key string) bool {
+    filename := path.Clean(s.root + "/" + key)
+    _, err := os.Stat(filename)
+    if err != nil {
+        return false
+    }
+    return true
+}
+
+// -----------------------------------------------------------------------------
+
 func (s *Store) Get(key string) (r ReadSeekCloser, length int64, err error) {
     filename := path.Clean(s.root + "/" + key)
 

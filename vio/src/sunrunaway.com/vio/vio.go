@@ -113,6 +113,12 @@ func (s *Service) get(w http.ResponseWriter, req *http.Request) {
 	key := query[1]
 	log.Println("get: key:", key)
 
+	isExist := s.stg.Check(key)
+	if !isExist {
+		log.Println("get: do not exist")
+		w.WriteHeader(404)
+	}
+
 	kh := keystore.KeyStore{
 		Key: key,
 		Expire: time.Now().Unix() + s.urlExpireTime,
@@ -248,21 +254,23 @@ func (s *Service) RegesterHandlers(mux *http.ServeMux) error {
 	mux.HandleFunc("/file/", func(w http.ResponseWriter, req *http.Request) {
 		s.file(w, req)
 	})
+	mux.HandleFunc("/get/", func(w http.ResponseWriter, req *http.Request) {
+		s.get(w, req)
+	})
+
 	mux.HandleFunc("/upload/", func(w http.ResponseWriter, req *http.Request) {
 		s.upload(w, req)
+	})
+	mux.HandleFunc("/put-auth", func(w http.ResponseWriter, req *http.Request) {
+		s.putAuth(w, req)
+	})
+
+	mux.HandleFunc("/delete/", func(w http.ResponseWriter, req *http.Request) {
+		s.delete(w, req)
 	})
 
 	mux.HandleFunc("/get-thumb/", func(w http.ResponseWriter, req *http.Request) {
 		s.getThumb(w, req)
-	})
-	mux.HandleFunc("/get/", func(w http.ResponseWriter, req *http.Request) {
-		s.get(w, req)
-	})
-	mux.HandleFunc("/delete/", func(w http.ResponseWriter, req *http.Request) {
-		s.delete(w, req)
-	})
-	mux.HandleFunc("/put-auth", func(w http.ResponseWriter, req *http.Request) {
-		s.putAuth(w, req)
 	})
 	return nil
 }
