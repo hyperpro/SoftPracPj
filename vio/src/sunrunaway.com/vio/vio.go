@@ -42,7 +42,7 @@ func New(stg *store.Store, myhost string, urlExpireTime int64) (s *Service) {
 // ===============================================================================
 
 //
-// GET /file/<encodedKey>
+// GET /file/<encodedKeyHandle>
 //
 func (s *Service) file(w http.ResponseWriter, req *http.Request) {
 	query := strings.Split(req.URL.Path[1:], "/")
@@ -50,16 +50,16 @@ func (s *Service) file(w http.ResponseWriter, req *http.Request) {
 		w.WriteHeader(http.StatusMethodNotAllowed)
 		return
 	}
-	encodedKey := query[1]
-	kh, err := keystore.DecodeKey(encodedKey)
+	encodedKeyHandle := query[1]
+	kh, err := keystore.Decode(encodedKeyHandle)
 	if err != nil {
-		log.Println("file: keystore.DecodeKey error:", err)
+		log.Println("file: keystore.Decode error:", err)
 		w.WriteHeader(404)
 		return
 	}
 	key := kh.Key
 	if time.Now().Unix() > kh.Expire {
-		log.Println("file: encodedKey expired.")
+		log.Println("file: encodedKeyHandle expired.")
 		w.WriteHeader(404)
 		return
 	}
@@ -117,14 +117,15 @@ func (s *Service) get(w http.ResponseWriter, req *http.Request) {
 	if !isExist {
 		log.Println("get: do not exist")
 		w.WriteHeader(404)
+		return
 	}
 
 	kh := keystore.KeyStore{
 		Key: key,
 		Expire: time.Now().Unix() + s.urlExpireTime,
 	}
-	encodedKey := keystore.EncodeKey(kh)
-	url := s.myhost + "/file/" + encodedKey
+	encodedKeyHandle := keystore.Encode(kh)
+	url := s.myhost + "/file/" + encodedKeyHandle
 	w.Header().Set("Content-Length", strconv.Itoa(len(url)))
 	w.WriteHeader(200)
 	io.WriteString(w, url)
@@ -142,7 +143,7 @@ func generateKey() string {
 }
 
 //
-// POST /upload/<encodedKey>
+// POST /upload/<encodedKeyHandle>
 // BODY: video stream with Content-Length
 // return: <key>
 //
@@ -152,16 +153,16 @@ func (s *Service) upload(w http.ResponseWriter, req *http.Request) {
 		w.WriteHeader(http.StatusMethodNotAllowed)
 		return
 	}
-	encodedKey := query[1]
-	kh, err := keystore.DecodeKey(encodedKey)
+	encodedKeyHandle := query[1]
+	kh, err := keystore.Decode(encodedKeyHandle)
 	if err != nil {
-		log.Println("upload: keystore.DecodeKey error:", err)
+		log.Println("upload: keystore.Decode error:", err)
 		w.WriteHeader(404)
 		return
 	}
 	key := kh.Key
 	if time.Now().Unix() > kh.Expire {
-		log.Println("upload: encodedKey expired.")
+		log.Println("upload: encodedKeyHandle expired.")
 		w.WriteHeader(404)
 		return
 	}
@@ -191,8 +192,8 @@ func (s *Service) putAuth(w http.ResponseWriter, req *http.Request) {
 		Key: key,
 		Expire: time.Now().Unix() + s.urlExpireTime,
 	}
-	encodedKey := keystore.EncodeKey(kh)
-	url := s.myhost + "/upload/" + encodedKey
+	encodedKeyHandle := keystore.Encode(kh)
+	url := s.myhost + "/upload/" + encodedKeyHandle
 	w.Header().Set("Content-Length", strconv.Itoa(len(url)))
 	w.WriteHeader(200)
 	io.WriteString(w, url)
