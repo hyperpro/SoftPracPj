@@ -14,7 +14,7 @@ class FileServer:
     def putAuth(self):
         """
         input:  (None)
-        return: uploadURL
+        return: uploadURL, err
         """
         try:
             resp, content = self.conn.request(self.host + '/put-auth', 'GET')
@@ -27,7 +27,7 @@ class FileServer:
 
     def putFile(self, file, uploadURL):
         """
-        input:  file
+        input:  file, uploadURL
         return: key, err
         """
         try:
