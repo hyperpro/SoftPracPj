@@ -39,6 +39,8 @@ func main() {
 	os.Mkdir(cfg.Root, 0755)
 	stg := store.NewStore(cfg.Root)
 	service := vio.New(stg, cfg.MyHost, cfg.UrlExpireTime)
+	
+	log.Println("vio is running at", cfg.BindHost)
 	err = service.Run(cfg.BindHost)
 	log.Fatal(err)
 }
