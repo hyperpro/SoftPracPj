@@ -9,9 +9,9 @@ import (
 	"net/http"
 	"strconv"
 	"strings"
-	"time"
-	"sunrunaway.com/store"
 	"sunrunaway.com/keystore"
+	"sunrunaway.com/store"
+	"time"
 )
 
 func randomBytes(length int) []byte {
@@ -30,8 +30,8 @@ func randomBytes(length int) []byte {
 // ===================================================================================
 
 type Service struct {
-	stg *store.Store
-	myhost string
+	stg           *store.Store
+	myhost        string
 	urlExpireTime int64
 }
 
@@ -121,7 +121,7 @@ func (s *Service) get(w http.ResponseWriter, req *http.Request) {
 	}
 
 	kh := keystore.KeyStore{
-		Key: key,
+		Key:    key,
 		Expire: time.Now().Unix() + s.urlExpireTime,
 	}
 	encodedKeyHandle := keystore.Encode(kh)
@@ -130,7 +130,6 @@ func (s *Service) get(w http.ResponseWriter, req *http.Request) {
 	w.WriteHeader(200)
 	io.WriteString(w, url)
 }
-
 
 // ---------------------------------------------------------------------------
 
@@ -189,7 +188,7 @@ func (s *Service) putAuth(w http.ResponseWriter, req *http.Request) {
 	log.Println("putAuth: key:", key)
 
 	kh := keystore.KeyStore{
-		Key: key,
+		Key:    key,
 		Expire: time.Now().Unix() + s.urlExpireTime,
 	}
 	encodedKeyHandle := keystore.Encode(kh)
@@ -198,7 +197,6 @@ func (s *Service) putAuth(w http.ResponseWriter, req *http.Request) {
 	w.WriteHeader(200)
 	io.WriteString(w, url)
 }
-
 
 // ---------------------------------------------------------------------------
 

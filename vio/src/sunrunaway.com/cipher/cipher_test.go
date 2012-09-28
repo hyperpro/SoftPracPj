@@ -21,21 +21,21 @@ func doTest(c Cipher, t *testing.T) {
 }
 
 func TestCipher(t *testing.T) {
-    c1, err := NewAesCipher()
-    if err != nil {
-        t.Fatal(err)
-    }
-    doTest(c1, t)
+	c1, err := NewAesCipher()
+	if err != nil {
+		t.Fatal(err)
+	}
+	doTest(c1, t)
 
-    c2, err := NewExpandCipher()
-    if err != nil {
-        t.Fatal(err)
-    }
-    doTest(c2, t)
+	c2, err := NewExpandCipher()
+	if err != nil {
+		t.Fatal(err)
+	}
+	doTest(c2, t)
 
-    c3, err := NewMixCipher(c1, c2)
-    if err != nil {
-        t.Fatal(err)
-    }
-    doTest(c3, t)
+	c3, err := NewMixCipher(c1, c2)
+	if err != nil {
+		t.Fatal(err)
+	}
+	doTest(c3, t)
 }

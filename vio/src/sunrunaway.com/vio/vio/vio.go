@@ -1,11 +1,11 @@
 package main
 
 import (
-	"log"
-	"os"
+	"encoding/json"
 	"flag"
 	"io/ioutil"
-	"encoding/json"
+	"log"
+	"os"
 	"sunrunaway.com/store"
 	"sunrunaway.com/vio"
 )
@@ -18,7 +18,7 @@ type Message struct {
 	BindHost      string `json:"bind_host"`
 	Root          string `json:"data_root"`
 	MyHost        string `json:"my_host"`
-	UrlExpireTime int64 `json:"url_expire_time"`
+	UrlExpireTime int64  `json:"url_expire_time"`
 }
 
 func main() {
@@ -35,7 +35,6 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-
 
 	os.Mkdir(cfg.Root, 0755)
 	stg := store.NewStore(cfg.Root)

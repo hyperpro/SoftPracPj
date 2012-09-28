@@ -12,24 +12,23 @@ import (
 const secretKey = "+\x17\xfdW\xcc\xec>\xbb\xd2\xec\x19\t:\xef\x7f\x01\xf5\x13|\xbf\xf3X\xafH?\x8f4\xb3&I\x04q"
 
 var (
-    EDecrypt = errors.New("Decrypt failed.")
+	EDecrypt = errors.New("Decrypt failed.")
 )
 
 // ===================================================================
 
 type AesCipher struct {
-    cipher cipher.Block
-    blockSize int
+	cipher    cipher.Block
+	blockSize int
 }
 
 func NewAesCipher() (*AesCipher, error) {
 	c, err := aes.NewCipher([]byte(secretKey))
 	if err != nil {
-        return nil, err
+		return nil, err
 	}
-    return &AesCipher{c, c.BlockSize()}, nil
+	return &AesCipher{c, c.BlockSize()}, nil
 }
-
 
 func (s *AesCipher) Encrypt(src []byte) (dst []byte) {
 
