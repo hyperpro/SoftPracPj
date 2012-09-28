@@ -1,19 +1,21 @@
 依赖
 ----
 
-    * 需安装httplib2
+ * 需安装httplib2
+
     sudo pip install httplib2
 
-    * 需安装web.py
+ * 需安装web.py
+
     sudo pip install web.py
 
 FileServer
 ----------
 
-	运行方法：exe/目录下运行run.sh（./run.sh）
-    api见: fileServerApi.py
+ * 运行方法：exe/目录下运行run.sh（./run.sh）
+ * api见: fileServerApi.py
 
-    # Usage Tip:
+ * Usage Tip:
 
         初始化:    fs = fileServerApi.FileServer(<file server host>)
 
@@ -29,5 +31,5 @@ FileServer
 Webserver
 ---------
 
-	Python 代码请使用tab缩进，别用空格思密达！！！
+ * Python 代码请使用tab缩进，别用空格思密达！！！
 
