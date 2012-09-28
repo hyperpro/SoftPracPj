@@ -14,11 +14,17 @@ const (
 	default_conf = "vio.conf"
 )
 
+type Account struct {
+	Uname  string `json:"uname"`
+	Digest string `json:"digest"`
+}
+
 type Message struct {
-	BindHost      string `json:"bind_host"`
-	Root          string `json:"data_root"`
-	MyHost        string `json:"my_host"`
-	UrlExpireTime int64  `json:"url_expire_time"`
+	BindHost      string    `json:"bind_host"`
+	Root          string    `json:"data_root"`
+	MyHost        string    `json:"my_host"`
+	UrlExpireTime int64     `json:"url_expire_time"`
+	Acc           []Account `json:"account"`
 }
 
 func main() {
@@ -38,8 +44,13 @@ func main() {
 
 	os.Mkdir(cfg.Root, 0755)
 	stg := store.NewStore(cfg.Root)
-	service := vio.New(stg, cfg.MyHost, cfg.UrlExpireTime)
-	
+
+	acc := make(map[string]string, len(cfg.Acc))
+	for _, v := range cfg.Acc {
+		acc[v.Uname] = v.Digest
+	}
+	service := vio.New(stg, cfg.MyHost, cfg.UrlExpireTime, acc)
+
 	log.Println("vio is running at", cfg.BindHost)
 	err = service.Run(cfg.BindHost)
 	log.Fatal(err)

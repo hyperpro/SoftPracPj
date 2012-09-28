@@ -11,8 +11,10 @@ import (
 	"strings"
 	"sunrunaway.com/keystore"
 	"sunrunaway.com/store"
+	http_digest "bitbucket.org/taruti/http_digest"
 	"time"
 )
+
 
 func randomBytes(length int) []byte {
 	r := length
@@ -29,14 +31,25 @@ func randomBytes(length int) []byte {
 
 // ===================================================================================
 
+const realm = "sunrunaway.com"
+
 type Service struct {
 	stg           *store.Store
 	myhost        string
 	urlExpireTime int64
+	// acc           map[string]string
+	auth          *http_digest.DigestServer
 }
 
-func New(stg *store.Store, myhost string, urlExpireTime int64) (s *Service) {
-	return &Service{stg, myhost, urlExpireTime}
+func New(stg *store.Store, myhost string, urlExpireTime int64, acc map[string]string) (s *Service) {
+	auth := http_digest.NewDigest(realm, func(user, realm string) string {
+		digest, ok := acc[user]
+		if !ok {
+			return ""
+		}
+		return digest
+	})
+	return &Service{stg, myhost, urlExpireTime, auth}
 }
 
 // ===============================================================================
@@ -251,6 +264,10 @@ func (s *Service) RegesterHandlers(mux *http.ServeMux) error {
 		s.file(w, req)
 	})
 	mux.HandleFunc("/get/", func(w http.ResponseWriter, req *http.Request) {
+		if !s.auth.Auth(w, req) {
+			log.Println("401 Unauthorized")
+			return
+		}
 		s.get(w, req)
 	})
 
@@ -258,10 +275,18 @@ func (s *Service) RegesterHandlers(mux *http.ServeMux) error {
 		s.upload(w, req)
 	})
 	mux.HandleFunc("/put-auth", func(w http.ResponseWriter, req *http.Request) {
+		if !s.auth.Auth(w, req) {
+			log.Println("401 Unauthorized")
+			return
+		}
 		s.putAuth(w, req)
 	})
 
 	mux.HandleFunc("/delete/", func(w http.ResponseWriter, req *http.Request) {
+		if !s.auth.Auth(w, req) {
+			log.Println("401 Unauthorized")
+			return
+		}
 		s.delete(w, req)
 	})
 	return nil

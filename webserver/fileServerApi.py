@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import httplib2
+import settings
 
 
 class FileServer:
@@ -8,6 +9,7 @@ class FileServer:
     def __init__(self, host):
         self.host = host
         self.conn = httplib2.Http(".cache")
+        self.conn.add_credentials(settings.fileServerUname, settings.fileServerPword)
 
     def putAuth(self):
         """

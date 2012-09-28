@@ -50,7 +50,6 @@ type KeyStore struct {
 func encode(kh KeyStore) (dst []byte) {
 	src := []byte(kh.Key + salt + strconv.FormatInt(kh.Expire, 36))
 	dst = g_cipher.Encrypt(src)
-	log.Println("dst:", dst)
 	return
 }
 
