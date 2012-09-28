@@ -1,3 +1,6 @@
+# -*- coding: utf-8 -*-
+
+import base64
 import web
 import model
 import fileServerApi
@@ -10,7 +13,8 @@ urls = (
 	'/personal', 'Personal',
 	'/video', 'Video',
 	'/edit', 'Edit',
-	'/upload', 'Upload',
+	'/upload/(.*)', 'Upload',  # POST
+	'/upload', 'Upload',  # GET
 )
 
 
@@ -72,15 +76,27 @@ class Personal:
 
 
 class Upload:
+	"""
+	目前的做法是
+	用户访问/upload页面会调用putAuth取得上传授权（一个会过期的上传url）
+	将这个url编码之后放入表单，POST请求时可得到这个uploadURL
+	然后调用fs.putFile上传文件
+	"""
 
 	def GET(self):
-		page_info = PageInfo('Upload')
-		return render.upload(default_user, page_info)
+		uploadURL, err = fs.putAuth()
+		if err != None:
+			web.debug(err)
+			return app.notfound()
+		encodedURL = base64.urlsafe_b64encode(uploadURL)
 
-	def POST(self):
+		page_info = PageInfo('Upload')
+		return render.upload(default_user, page_info, encodedURL)
+
+	def POST(self, encodedURL):
+		uploadURL = base64.urlsafe_b64decode(str(encodedURL))
 		x = web.input(up_img={})
-		# web.debug(x['up_img'].value)
-		key, err = fs.putFile(x['up_img'].file)
+		key, err = fs.putFile(x['up_img'].file, uploadURL)
 		if err != None:
 			web.debug(err)
 			# do something
