@@ -1,2 +1,2 @@
-export GOPATH=$GOPATH:/home/archer/Documents/courses/SoftPracPj/vio
-export PATH=$PATH:/home/archer/Documents/courses/SoftPracPj/vio/bin
+export GOPATH=$GOPATH:$HOME/Documents/courses/SoftPracPj/vio
+export PATH=$PATH:$HOME/Documents/courses/SoftPracPj/vio/bin
