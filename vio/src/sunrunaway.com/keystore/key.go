@@ -12,6 +12,9 @@ import (
 const (
 	// python: os.urandom(string_length)
 	salt = "\xdd\xf2\t\xcf\xdb\xdb\xf0d\x80\xd0b\xd3c\x8d\x1c$N\xf1\x98\xc4"
+
+	// len(secretKey) == 32
+	secretKey = "+\x17\xfdW\xcc\xec>\xbb\xd2\xec\x19\t:\xef\x7f\x01\xf5\x13|\xbf\xf3X\xafH?\x8f4\xb3&I\x04q"
 )
 
 var (
@@ -25,7 +28,7 @@ func init() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	c2, err := cipher.NewAesCipher()
+	c2, err := cipher.NewAesCipher([]byte(secretKey))
 	if err != nil {
 		log.Fatal(err)
 	}

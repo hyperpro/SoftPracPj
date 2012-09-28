@@ -74,4 +74,11 @@ class FileServer:
         input:  key
         return: thumbURL, err
         """
-        return (self.host + '/get-thumb/' + key, None)
+        try:
+            resp, content = self.conn.request(self.host + '/get/' + key, 'GET')
+        except Exception, e:
+            return (None, e)
+
+        if resp['status'] != '200':
+            return (None, 'get: status code = ' + resp['status'])
+        return (content + '?thumb=1', None)

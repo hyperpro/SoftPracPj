@@ -8,9 +8,6 @@ import (
 	"errors"
 )
 
-// python: os.urandom(string_length)
-const secretKey = "+\x17\xfdW\xcc\xec>\xbb\xd2\xec\x19\t:\xef\x7f\x01\xf5\x13|\xbf\xf3X\xafH?\x8f4\xb3&I\x04q"
-
 var (
 	EDecrypt = errors.New("Decrypt failed.")
 )
@@ -22,8 +19,8 @@ type AesCipher struct {
 	blockSize int
 }
 
-func NewAesCipher() (*AesCipher, error) {
-	c, err := aes.NewCipher([]byte(secretKey))
+func NewAesCipher(secretKey []byte) (*AesCipher, error) {
+	c, err := aes.NewCipher(secretKey)
 	if err != nil {
 		return nil, err
 	}

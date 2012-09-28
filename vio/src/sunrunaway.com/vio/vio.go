@@ -42,7 +42,25 @@ func New(stg *store.Store, myhost string, urlExpireTime int64) (s *Service) {
 // ===============================================================================
 
 //
-// GET /file/<encodedKeyHandle>
+// GET /get-thumb/<key>
+//
+func (s *Service) getThumb(w http.ResponseWriter, key string) {
+	r, length, err := s.stg.GetThumb(key)
+	if err != nil {
+		log.Println("getThumb: s.stg.Get error:", err)
+		w.WriteHeader(404)
+		return
+	}
+	defer r.Close()
+
+	h := w.Header()
+	h.Set("Content-Length", strconv.FormatInt(length, 10))
+	w.WriteHeader(200)
+	io.CopyN(w, r, length)
+}
+
+//
+// GET /file/<encodedKeyHandle>(?thumb=1)
 //
 func (s *Service) file(w http.ResponseWriter, req *http.Request) {
 	query := strings.Split(req.URL.Path[1:], "/")
@@ -64,6 +82,12 @@ func (s *Service) file(w http.ResponseWriter, req *http.Request) {
 		return
 	}
 	log.Println("file: key:", key)
+
+
+	if q := req.URL.Query(); q.Get("thumb") == "1" {
+		s.getThumb(w, key)
+		return
+	}
 
 	r, length, err := s.stg.Get(key)
 	if err != nil {
@@ -220,33 +244,6 @@ func (s *Service) delete(w http.ResponseWriter, req *http.Request) {
 	w.WriteHeader(200)
 }
 
-// ---------------------------------------------------------------------------
-
-//
-// GET /get-thumb/<key>
-//
-func (s *Service) getThumb(w http.ResponseWriter, req *http.Request) {
-	query := strings.Split(req.URL.Path[1:], "/")
-	if len(query) < 2 {
-		w.WriteHeader(http.StatusMethodNotAllowed)
-		return
-	}
-	key := query[1]
-
-	r, length, err := s.stg.GetThumb(key)
-	if err != nil {
-		log.Println("getThumb: s.stg.Get error:", err)
-		w.WriteHeader(404)
-		return
-	}
-	defer r.Close()
-
-	h := w.Header()
-	h.Set("Content-Length", strconv.FormatInt(length, 10))
-	w.WriteHeader(200)
-	io.CopyN(w, r, length)
-}
-
 // ===============================================================================
 
 func (s *Service) RegesterHandlers(mux *http.ServeMux) error {
@@ -266,10 +263,6 @@ func (s *Service) RegesterHandlers(mux *http.ServeMux) error {
 
 	mux.HandleFunc("/delete/", func(w http.ResponseWriter, req *http.Request) {
 		s.delete(w, req)
-	})
-
-	mux.HandleFunc("/get-thumb/", func(w http.ResponseWriter, req *http.Request) {
-		s.getThumb(w, req)
 	})
 	return nil
 }
