@@ -21,7 +21,7 @@ func doTest(c Cipher, t *testing.T) {
 }
 
 func TestCipher(t *testing.T) {
-	c1, err := NewAesCipher()
+	c1, err := NewAesCipher([]byte("1234567812345678"))
 	if err != nil {
 		t.Fatal(err)
 	}

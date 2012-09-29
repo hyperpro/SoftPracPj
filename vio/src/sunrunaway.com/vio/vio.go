@@ -11,8 +11,10 @@ import (
 	"strings"
 	"sunrunaway.com/keystore"
 	"sunrunaway.com/store"
-	http_digest "bitbucket.org/taruti/http_digest"
+    http_digest "github.com/SunRunAway/go_httpauth"
 	"time"
+
+	// "net/http/httputil"
 )
 
 
@@ -264,6 +266,8 @@ func (s *Service) RegesterHandlers(mux *http.ServeMux) error {
 		s.file(w, req)
 	})
 	mux.HandleFunc("/get/", func(w http.ResponseWriter, req *http.Request) {
+		// o, _ := httputil.DumpRequest(req, false)
+		// log.Println(string(o))
 		if !s.auth.Auth(w, req) {
 			log.Println("401 Unauthorized")
 			return

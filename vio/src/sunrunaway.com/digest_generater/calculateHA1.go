@@ -1,7 +1,7 @@
 package main
 
 import (
-    http_digest "bitbucket.org/taruti/http_digest"
+    http_digest "github.com/SunRunAway/go_httpauth"
     "os"
     "bytes"
     "io"
