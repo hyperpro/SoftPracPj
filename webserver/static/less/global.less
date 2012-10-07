@@ -1,8 +1,32 @@
 /* global.less */
 
+//color
 @background_color: #f0f0f0;
 @header_background_color: whitesmoke;
 
+//@border_color: #cdcfcf;
+@border_color: #00a0de;
+@border_back_color: #328DB8;
+@border_font_color: #fff;
+
+@shadow_color: #ccc;
+
+@base_color: #4D90FE;
+
+//@highlight_color: #3079ED;
+@highlight_color: #fff;
+
+//length
+@header_height: 50px;
+
+@radius: 3px;
+
+html{
+	::-webkit-scrollbar {
+		width: 0px;
+		height: 0;
+	}
+}
 body{
 	margin: 0;
 	padding-bottom: 47px;/*height of footer*/
@@ -25,7 +49,7 @@ input, button{
 	background: none;
 }
 input, button, textarea{
-	border: 1px solid #cdcfcf;
+	border: 1px solid @border_color;
 	border-radius: 2px;
 }
 
@@ -56,7 +80,7 @@ ul.inline li{
 	cursor: pointer;
 }
 .link:hover{
-	color: #00a0de;
+	color: @highlight_color;
 }
 
 .left{
@@ -178,22 +202,22 @@ ul.inline li{
 	color: inherit;
 	border-radius: 2px;
 
-	border: 1px solid #cdcfcf;
+	border: 1px solid @border_color;
 
 	cursor: pointer;
 }
 .btn:hover, input[type="submit"]:hover{
-	/*
-	border-color: #00a0de;*/
-	background-color: #f0f0f0;
+	color: @background_color;
+	border-color: @base_color;
+	background-color: @base_color;
 }
 .btn_highlight, input[type="submit"].btn_highlight{
-	border: 1px solid #00a0de;
-	background-color: #00a0de;
+	border: 1px solid @highlight_color;
+	background-color: @base_color;
 	color: #fff;
 }
 .btn_highlight:hover, input[type="submit"].btn_highlight:hover{
-	background-color: #0391C9;
+	background-color: @highlight_color;
 }
 .btn_highlight .icon{
 	background-image: url(../img/rev_icons.png);
@@ -207,7 +231,12 @@ ul.inline li{
 }
 
 .highlight{
-	color: #00a0de;
+	color: @highlight_color;
+}
+
+.parent_wide{
+	padding: 0;
+	width: 100%;
 }
 
 .shadow{
@@ -217,11 +246,11 @@ ul.inline li{
 /*----------------------------------------------------------------------*/
 
 .header{
-	height: 60px;
+	height: @header_height;
 	width: 100%;
 
 	background-color: @header_background_color;
-	border-bottom: 1px solid #cdcfcf;
+	border-bottom: 1px solid @border_color;
 }
 .header_content{
 	position: relative;
@@ -231,8 +260,8 @@ ul.inline li{
 
 
 .main_ops{
-	font-size: 20px;
-	line-height: 60px;
+	font-size: @header_height /3;
+	line-height: @header_height;
 }
 .main_ops > a > li{
 	margin-right: 25px;
@@ -244,11 +273,13 @@ ul.inline li{
 }
 
 .header .my_head_img{
-	padding: 10px;
+	width: @header_height;
+	height: @header_height;
+	padding: @header_height/6;
 	vertical-align: bottom;
 
-	background-color: whitesmoke;
-	box-shadow: 0 0 2px #ccc;
+	background-color: @border_back_color;
+	box-shadow: 0 0 2px @shadow_color;
 }
 
 .header .my_name{
@@ -267,9 +298,64 @@ ul.inline li{
 .main_content{
 	position: relative;
 	width: 960px;
-	margin: 0 auto;
+	margin: 50px auto 0;
+
+	font-size: 0;
+
+	*{
+		font-size: 14px;
+	}
+
+	div::-webkit-scrollbar {
+		width: 0px;
+		height: 0;
+	}
+}
+.block{
+	position: relative;
+	display: inline-block;
+	vertical-align: top;
+	margin:0 5px;
+
+	border-radius: 4px;
+	background-color: @header_background_color;
+
+	.block_title{
+		color: @border_font_color;
+		margin: 0 0 10px;
+		padding: 6px 10px 4px;
+
+		border-top-left-radius: @radius;
+		border-top-right-radius: @radius;
+		background-color: @border_back_color;
+		border-bottom: 1px dashed @border_color;
+		//.shadow;
+	}
+
+	.block_content{
+		padding: 5px 10px;
+
+		overflow-y:scroll;
+		min-height: 200px;
+		max-height: 450px;
+	}
 }
 
+.block1{
+	.block;
+	width: 160px;
+	margin-left: 0;
+}
+.block2{
+	.block;
+	width: 160px;
+	min-height: 360px;
+}
+.block3{
+	.block;
+	width: 620px;
+	margin-right: 0;
+}
 
 footer{
 	position: fixed;
@@ -277,31 +363,24 @@ footer{
 	width: 100%;
 	padding: 15px 0;
 	background-color: whitesmoke;
-	border-top: 1px solid #cdcfcf;
+	border-top: 1px solid @border_color;
 }
 
 
 /*-------------------------------------------------------------*/
 
 .video_list{
-	padding: 2px;
-
+	//padding: 2px;
 }
 
-.video_block{
-	float: left;
+.video_block{	
 	position: relative;
-	margin: 12px 12px 12px 12px;
-	/*box-shadow: 0 0 2px #ccc;*/
-	box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1), 0 0 0 3px #F9F9F9 inset;
-	border: 1px solid #D9D9D7;
 
 	font-size: 0;
 }
 
 .video_prev{
-	padding: 1px;
-
+	width: 140px;
 	background-color: whitesmoke;
 }
 .video_info_block{
@@ -326,3 +405,5 @@ footer{
 .video_block:hover .video_info_block{
 	display: table-cell;
 }
+
+
