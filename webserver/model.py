@@ -14,6 +14,7 @@ class Video:
 class User:
 
 	def __init__(self):
+		self.id = '1'
 		self.name = 'test'
 		self.pwd = '123456'
 		self.mail = 'test@1006.cn'

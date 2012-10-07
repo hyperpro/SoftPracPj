@@ -10,9 +10,9 @@ urls = (
 	'/', 'Index',
 	'/login', 'Login',
 	'/register', 'Register',
-	'/personal', 'Personal',
+	'/personal/(.*)', 'Personal',
 	'/video/(.*)', 'Video',
-	'/edit', 'Edit',
+	'/edit/(.*)', 'Edit',
 	'/upload/(.*)', 'Upload',  # POST
 	'/upload', 'Upload',  # GET
 )
@@ -69,7 +69,7 @@ class Register:
 
 class Personal:
 
-	def GET(self):
+	def GET(self, id):
 		page_info = PageInfo('Personal')
 		return render.personal(default_user, default_user, page_info)
 
@@ -113,9 +113,9 @@ class Video:
 
 class Edit:
 
-	def GET(self):
+	def GET(self, key):
 		page_info = PageInfo('Edit')
-		return render.edit(default_video, page_info)
+		return render.edit(default_video, default_user, page_info)
 
 
 ###
