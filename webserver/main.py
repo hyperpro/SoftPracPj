@@ -27,10 +27,10 @@ render = web.template.render('templates', base='base', globals=t_globals)
 default_user = model.User()
 for i in range(1, 8):
 	str_i = str(i)
-	temp = model.Video('video' + str_i, 'intro of video' + str_i, 'upload_time' + str_i, i)
+	temp = model.Video('video' + str_i, 'test' + str_i, 'intro of video' + str_i, 'upload_time' + str_i, i)
 	default_user.add_video(temp)
 
-default_video = model.Video('video1', 'intro of video1', 'upload_time1', 1)
+default_video = model.Video('video1', 'test1', 'intro of video1', 'upload_time1', 1)
 
 ### FileServer
 fs = fileServerApi.FileServer('http://localhost:17007')
@@ -68,7 +68,7 @@ class Personal:
 
 	def GET(self):
 		page_info = PageInfo('Personal')
-		return render.personal(default_user, page_info)
+		return render.personal(default_user, default_user, page_info)
 
 
 class Upload:

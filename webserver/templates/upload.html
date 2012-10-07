@@ -1,8 +1,12 @@
-﻿$def with (user, page_info)
+﻿$def with (me, page_info)
 $var title: $page_info.title
 
-<h2 id="user_name">$user.name</h2>
-<form action="/upload" method="post" enctype="multipart/form-data">
-	<input type="file" name="up_img" />
-	<input type="submit" value="upload" />
-</form>
+$:elements.header(me)
+
+<div class="main_content">
+	<h2 id="my_name">$me.name</h2>
+	<form action="/upload" method="post" enctype="multipart/form-data">
+		<input type="file" name="up_img" />
+		<input type="submit" value="upload" />
+	</form>
+</div>
