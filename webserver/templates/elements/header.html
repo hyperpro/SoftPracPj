@@ -6,9 +6,12 @@ $def with (me)
 			<a href="/upload" class=""><li class="main_op">Upload Video</li></a>
 			<a href="/logout" class=""><li class="main_op">Log Out</li></a>
 		</ul>
-		<div class="my_info right">
-			<img id="my_head_img" title="$me.name" class="my_head_img" src="$me.pic" height="60" width="60">
-		</div>
+		$if me:
+			<div class="my_info right">
+				<a href="/personal/$me.id">
+					<img id="my_head_img" title="$me.name" class="my_head_img" src="$me.pic" height="60" width="60">
+				</a>
+			</div>
 	</div>
 </div>
 
