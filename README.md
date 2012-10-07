@@ -9,6 +9,26 @@
 
     sudo pip install web.py
 
+ * 需安装python-mysqldb
+
+    sudo apt-get install python-mysqldb
+
+ * 需mysql建表（注意：用户名root密码为空）
+
+ 	mysql -u root -p 
+
+ 	create database videoproject;
+
+ 	use videoproject
+
+ 	create table sessions (
+		session_id char(128) UNIQUE NOT NULL,
+		atime timestamp NOT NULL default current_timestamp,
+		data text
+	);
+
+
+
 FileServer
 ----------
 
