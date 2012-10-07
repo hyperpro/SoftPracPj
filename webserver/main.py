@@ -62,8 +62,8 @@ class Index:
 	def GET(self):
 		cookie = web.cookies();
 		if cookie:
-			if session.login == "True":
-				current_user = Getuser(session.login)
+			if session.login == 'True':
+				current_user = Getuser(session.login) ## Ark Yang's Function 
 				return render.index(current_user, page_info)
 			else:
 				raise web.seeother('/login')
