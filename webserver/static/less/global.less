@@ -1,4 +1,7 @@
-/* global.css */
+/* global.less */
+
+@background_color: #f0f0f0;
+@header_background_color: whitesmoke;
 
 body{
 	margin: 0;
@@ -8,7 +11,7 @@ body{
 	font-family: Arial, "Microsoft YaHei", "STHeiti";
 	color: #333;
 
-	background-color: #f0f0f0;
+	background-color: @background_color;
 }
 
 .no_style{
@@ -217,7 +220,7 @@ ul.inline li{
 	height: 60px;
 	width: 100%;
 
-	background-color: whitesmoke;
+	background-color: @header_background_color;
 	border-bottom: 1px solid #cdcfcf;
 }
 .header_content{

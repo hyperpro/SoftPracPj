@@ -2,8 +2,9 @@
 
 class Video:
 
-	def __init__(self, name, intro, upload_time, key):
+	def __init__(self, name, owner, intro, upload_time, key):
 		self.name = name
+		self.owner = owner
 		self.intro = intro
 		self.upload_time = upload_time
 		self.key = key

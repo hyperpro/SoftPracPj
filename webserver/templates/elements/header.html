@@ -1,8 +1,14 @@
-$def with (user)
-
-<ul id="main_ops" class="inline main_ops">
-	<a href="/" class=""><li class="main_op">Home</li></a>
-	<a href="/upload" class=""><li class="main_op">Upload Video</li></a>
-	<a href="/logout" class=""><li class="main_op">Log Out</li></a>
-</ul>
+$def with (me)
+<div class="header">
+	<div class="header_content">
+		<ul id="main_ops" class="inline shadow main_ops">
+			<a href="/" class=""><li class="main_op">Home</li></a>
+			<a href="/upload" class=""><li class="main_op">Upload Video</li></a>
+			<a href="/logout" class=""><li class="main_op">Log Out</li></a>
+		</ul>
+		<div class="my_info right">
+			<img id="my_head_img" title="$me.name" class="my_head_img" src="$me.pic" height="60" width="60">
+		</div>
+	</div>
+</div>
 

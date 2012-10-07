@@ -1,28 +1,27 @@
-/*
-.head_img{
-	position: fixed;
-
-	border-radius: 60px;
-	padding: 4px;
-	box-shadow: 0 0 2px #333;
+.user_info{
+	margin-top: 30px;
 }
 
-.main_content{
-	height: 400px;
-	width: 100%;
-
-	overflow: hidden;
+.user_head_img{
+	padding: 10px;
+	vertical-align: bottom;
 
 	background-color: whitesmoke;
+	box-shadow: 0 0 2px #ccc;
 }
 
-.video_list{
-	position: fixed;
-	width: auto;
-	height: 160px;
-	left: 40%;
+.user_name{
+	display: inline-block;
+	vertical-align: bottom;
 
-	overflow-x: scroll;
+	padding: 0 20px;
+
+	font-size: 16px;
+	font-weight: bold;
+	line-height: 60px;
+	height: 60px;
 }
 
-*/
+.user_videos{
+	margin-top: 50px;
+}

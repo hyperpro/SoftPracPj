@@ -1,11 +1,16 @@
-$def with (user, page_info)
+$def with (me, page_info)
 $var title: $page_info.title
 
-$:elements.header(user)
-<h2>My videos:</h2>
-<ul id="vidoes" class="inline video_list">
-	$for video in user.videos:
-		<li>
-			$:elements.video_prev(video)
-		</li>
-</ul>
+$:elements.header(me)
+
+<div class="main_content">
+	<div class="my_videos">
+		<h2 class="shadow">My videos</h2>
+		<ul id="videos" class="inline video_list">
+			$for video in me.videos:
+				<li>
+					$:elements.video_prev(video)
+				</li>
+		</ul>
+	</div>
+</div>
