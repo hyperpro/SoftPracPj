@@ -15,17 +15,16 @@
 
  * 需mysql建表（注意：用户名root密码为空）
 
+ 	cd到webserver目录
  	mysql -u root -p 
 
- 	create database videoproject;
+ 		mysql> create database videoproject;
 
- 	use videoproject
+ 		mysql> use videoproject
+ 	
+ 	ctrl+D退出
+ 	mysql -u root videoproject < videoproject.mysql
 
- 	create table sessions (
-		session_id char(128) UNIQUE NOT NULL,
-		atime timestamp NOT NULL default current_timestamp,
-		data text
-	);
 
 
 
