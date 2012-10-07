@@ -40,7 +40,7 @@ app = web.application(urls, globals())
 
 ### User Sessions
 web.config.debug = False
-session = web.session.Session(app,web.session.DiskStore('sessions'),initializer={'login':"", 'username':'guest'})
+session = web.session.Session(app,web.session.DiskStore('sessions'),initializer={'login':'False', 'username':'guest'})
 web.config.session_parameters['ignore_expiry'] = False
 web.config.session_parameters['timeout'] = 70
 web.config.session_parameters['exprired_message'] = 'Please login again'
@@ -62,14 +62,13 @@ class Index:
 	def GET(self):
 		cookie = web.cookies();
 		if cookie:
-			if session.username == cookie.value:
-				current_user = Getuser(cookie.value)
+			if session.login == "True":
+				current_user = Getuser(session.login)
 				return render.index(current_user, page_info)
 			else:
 				raise web.seeother('/login')
 		else:
-			raise web.seeother('/login')
-			 
+			raise web.seeother('/login')			 
 		page_info = PageInfo('Index')
 		return render.index(default_user, page_info)
 		#return elements.video_prev(default_video)
