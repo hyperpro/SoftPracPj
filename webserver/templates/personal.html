@@ -1,16 +1,20 @@
-$def with (user, page_info)
+$def with (me, user, page_info)
 $var title: $page_info.title
 $var css: personal.css
 
-$:elements.header(user)
-<span id="name">$user.name</span>
-<img id="head_img" class="head_img" src="$user.pic" height="60" width="60">
+$:elements.header(me)
 <div class="main_content">
-	<h2>His videos:</h2>
-	<ul id="vidoes" class="inline video_list">
-		$for video in user.videos:
-			<li>
-				$:elements.video_prev(video)
-			</li>
-	</ul>
+	<div class="user_info">
+		<img id="user_head_img" class="user_head_img" src="$user.pic" height="60" width="60">
+		<span class="sp_text shadow user_name">$user.name</span>
+	</div>
+	<div class="user_videos">
+		<h2 class="shadow">His videos</h2>
+		<ul id="videos" class="inline video_list">
+			$for video in user.videos:
+				<li>
+					$:elements.video_prev(video)
+				</li>
+		</ul>
+	</div>
 </div>

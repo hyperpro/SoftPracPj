@@ -1,8 +1,12 @@
 $def with (page_info)
 $var title: $page_info.title
 
-<form action="/login" method="post">
-	mail<input type="text" name="username" /><br/>
-	pwd<input type="password" name="password" /><br/>
-	<input type="submit" value="Login" />
-</form>
+$:elements.header()
+
+<div class="main_content">
+	<form action="/login" method="post">
+		mail<input type="text" name="username" /><br/>
+		pwd<input type="password" name="password" /><br/>
+		<input type="submit" value="Login" />
+	</form>
+</div>
