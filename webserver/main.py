@@ -36,6 +36,18 @@ for i in range(1, 8):
 
 default_video = model.Video('video1', 'intro of video1', 'upload_time1', 1)
 
+### Main Applicaiton 
+app = web.application(urls, globals())
+
+### User Sessions
+web.config.debug = False
+session = web.session.Session(app,web.session.DiskStore('sessions'),initializer={'login':"", 'username':'guest'})
+web.config.session_parameters['ignore_expiry'] = False
+web.config.session_parameters['timeout'] = 70
+web.config.session_parameters['exprired_message'] = 'Please login again'
+
+
+
 ### FileServer
 fs = fileServerApi.FileServer('http://localhost:17007')
 
@@ -49,6 +61,16 @@ class PageInfo:
 class Index:
 
 	def GET(self):
+		cookie = web.cookies();
+		if cookie:
+			if session.username == cookie.value:
+				current_user = Getuser(cookie.value)
+				return render.index(current_user, page_info)
+			else:
+				raise web.seeother('/login')
+		else:
+			raise web.seeother('/login')
+			 
 		page_info = PageInfo('Index')
 		return render.index(default_user, page_info)
 		#return elements.video_prev(default_video)
@@ -57,6 +79,7 @@ class Index:
 class Login:
 
 	def GET(self):
+		
 		page_info = PageInfo('Login')
 		return render.login(page_info)
 
@@ -119,8 +142,6 @@ class Edit:
 		return render.edit(default_video, page_info)
 
 
-###
-app = web.application(urls, globals())
 
 if __name__ == '__main__':
 	app.run()
