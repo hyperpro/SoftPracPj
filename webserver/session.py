@@ -26,9 +26,7 @@ def login(userid):
     s.userid = userid; 
 
 def logout():
-    return True
-    ##get_session.is_logged = False
-    ##get_session.kill()
+    get_session().kill()
     
 def get_user_id():
     return get_session().userid

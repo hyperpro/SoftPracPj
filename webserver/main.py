@@ -11,7 +11,7 @@ import applications
 urls = (
 	'/', 'applications.Index',
 	'/login', 'applications.Login',
-	'/logout', 'applications.Logout'
+	'/logout', 'applications.Logout',
 	'/register', 'applications.Register',
 	'/personal/(.*)', 'applications.Personal',
 	'/video/(.*)', 'applications.Video',
