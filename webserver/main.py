@@ -17,7 +17,7 @@ urls = (
 	'/video/(.*)', 'applications.Video',
 	'/edit/(.*)', 'applications.Edit',
 	'/upload/(.*)', 'applications.Upload',  # POST
-	'/upload', 'Upload',  # GET
+	'/upload', 'applications.Upload',  # GET
 )
 
 ### Main Applicaiton 
