@@ -1,17 +1,24 @@
 $def with (me)
 <div class="header">
 	<div class="header_content">
-		<ul id="main_ops" class="inline shadow main_ops">
-			<a href="/" class=""><li class="main_op">Home</li></a>
-			<a href="/upload" class=""><li class="main_op">Upload Video</li></a>
-			<a href="/logout" class=""><li class="main_op">Log Out</li></a>
-		</ul>
+		
 		$if me:
+			<ul id="main_ops" class="inline shadow main_ops">
+				<a href="/" class=""><li class="main_op">Home</li></a>
+				<a href="/upload" class=""><li class="main_op">Upload Video</li></a>
+				<a href="/logout" class=""><li class="main_op">Log Out</li></a>
+			</ul>
 			<div class="my_info right">
 				<a href="/personal/$me.id">
 					<img id="my_head_img" title="$me.name" class="my_head_img" src="$me.pic">
 				</a>
 			</div>
+		$else:
+			<ul id="main_ops" class="inline shadow main_ops">
+				<a href="/" class=""><li class="main_op">Home</li></a>
+				<a href="/login" class=""><li class="main_op">Login</li></a>
+				<a href="/register" class=""><li class="main_op">Register</li></a>
+			</ul>
 	</div>
 </div>
 

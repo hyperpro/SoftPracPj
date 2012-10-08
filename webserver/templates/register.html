@@ -4,10 +4,10 @@ $var title: $page_info.title
 $:elements.header("")
 
 <div class="main_content">
-	<form action="/register" method="post">
-		mail<input type="text" name="username" /><br/>
-		pwd<input type="password" name="password" /><br/>
-		pwd again<input type="password" name="password_comfirm" /><br/>
+	<form action="/register" method="post" class="typical_form">
+		<input type="text" name="username" class="input_large" placeholder="E-mail" />
+		<input type="password" name="password" class="input_large" placeholder="Password" />
+		<input type="password" name="password_comfirm" class="input_large" placeholder="Password again" /><br/>
 		<input type="submit" value="Register" />
 	</form>
 </div>
