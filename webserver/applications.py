@@ -27,6 +27,9 @@ default_video = model.Video('video1', 'test1', 'intro of video1', 'upload_time1'
 fs = fileServerApi.FileServer('http://localhost:17007')
 
 
+def notfound():
+    return web.notfound(render.notfound())
+
 class PageInfo:
     def __init__(self, title):
         self.title = title
@@ -44,7 +47,7 @@ class Index:
             ##current_user = getUser(current_userid)
             return render.index(default_user, page_info)
         else:
-            raise web.seeother('/login')            
+            raise web.seeother('/login')
         return render.index(default_user, page_info)
         #return elements.video_prev(default_video)
 
@@ -54,7 +57,7 @@ class Login:
     def GET(self):
         page_info = PageInfo('Login')
         return render.login(page_info)
-    
+
     def POST(self):
         data = web.input()
         answer = True  ## This should be the Function CheckUser, by Ark
@@ -64,14 +67,14 @@ class Login:
             raise web.seeother('/')
         else:
             raise web.seeother('/login')
-        
-        
+
+
 class Logout:
-    
+
     def GET(self):
         session.logout()
         raise web.seeother('/')
-        
+
 
 
 class Register:
@@ -89,7 +92,7 @@ class Personal:
 
 
 class Upload:
-    
+
     """
     目前的做法是
     用户访问/upload页面会调用putAuth取得上传授权（一个会过期的上传url）
@@ -101,7 +104,7 @@ class Upload:
         uploadURL, err = fs.putAuth()
         if err != None:
             web.debug(err)
-            return app.notfound()
+            raise web.notfound()
         encodedURL = base64.urlsafe_b64encode(uploadURL)
 
         page_info = PageInfo('Upload')

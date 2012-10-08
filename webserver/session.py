@@ -23,12 +23,11 @@ def is_logged():
 def login(userid):
     s = get_session()
     s.is_logged = True;
-    s.userid = userid; 
+    s.userid = userid;
 
 def logout():
     get_session().kill()
-    
+
 def get_user_id():
     return get_session().userid
-  
-       
+
