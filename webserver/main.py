@@ -1,9 +1,6 @@
 # -*- coding: utf-8 -*-
 
-import base64
 import web
-import model
-import fileServerApi
 import session
 import applications
 
@@ -20,10 +17,11 @@ urls = (
 	'/upload', 'applications.Upload',  # GET
 )
 
-### Main Applicaiton 
+### Main Applicaiton
 app = web.application(urls, globals())
 session.add_sessions_to_app(app)
 
 
 if __name__ == '__main__':
+	app.notfound = applications.notfound
 	app.run()
