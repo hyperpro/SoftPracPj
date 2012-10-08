@@ -18,10 +18,10 @@ render = web.template.render('templates', base='base', globals=t_globals)
 default_user = model.User()
 for i in range(1, 8):
     str_i = str(i)
-    temp = model.Video('video' + str_i, 'test' + str_i, 'intro of video' + str_i, 'upload_time' + str_i, i)
+    temp = model.Video(str_i, 'video' + str_i, 'test' + str_i, 'intro of video' + str_i, 'upload_time' + str_i, i)
     default_user.add_video(temp)
 
-default_video = model.Video('video1', 'test1', 'intro of video1', 'upload_time1', 1)
+default_video = model.Video('1','video1', 'test1', 'intro of video1', 'upload_time1', 1)
 
 ### FileServer
 fs = fileServerApi.FileServer('http://localhost:17007')
@@ -31,8 +31,10 @@ def notfound():
     return web.notfound(render.notfound())
 
 class PageInfo:
-    def __init__(self, title):
+    def __init__(self, title, message = "", error = ""):
         self.title = title
+        self.message = message
+        self.error = error
 
 
 ### Methods
@@ -66,7 +68,9 @@ class Login:
             session.login(current_user.name)
             raise web.seeother('/')
         else:
-            raise web.seeother('/login')
+            page_info = PageInfo('Login','Message Error')
+            return render.login(page_info)
+            
 
 
 class Logout:
@@ -82,7 +86,22 @@ class Register:
     def GET(self):
         page_info = PageInfo('Register')
         return render.register(page_info)
-
+    def POST(self):
+        data = web.input()
+        if data.password != data.password_comfirm:
+            raise web.seeother('/register')
+        else:
+            answer = True ## waiting for delete
+            id = 1 ##
+            ##answer id = user_insert(data.username,data.password)
+            if answer:
+                session.login(id)
+                raise web.seeother('/')
+            else:
+                page_info = PageInfo('Register','haha')
+                return render.register(page_info)
+            
+        
 
 class Personal:
 
@@ -124,13 +143,24 @@ class Upload:
 
 class Video:
 
-    def GET(self, key):
+    def GET(self, id):
         page_info = PageInfo('Video')
         return render.video(default_video, default_user, page_info)
 
 
 class Edit:
 
-    def GET(self, key):
+    def GET(self, id):
         page_info = PageInfo('Edit')
         return render.edit(default_video, default_user, page_info)
+    def POST(self,id):
+        data = web.input()
+        ##ans = modify_video(id, data.video_name, data.video_intro)
+        ans = True ##waiting for delete
+        if ans:
+            page_info = PageInfo('Edit',message = '保存成功！')
+            return render.edit(default_video,default_user,page_info)
+        else:
+            page_info = PageInfo('Edit',message = '保存失败，请再试！')
+            return render.edit(default_video,default_user,page_info)
+            
