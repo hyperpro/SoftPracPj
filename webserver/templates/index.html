@@ -1,6 +1,8 @@
 $def with (me, page_info)
 
 $var title: $page_info.title
+
+
 $var css: index.css
 $var js: index.js
 
@@ -37,7 +39,7 @@ $:elements.header(me)
 			<video id="video" src="" controls="controls" width="600" height="358">Your browser does not support html5, chrome will work.</video>
 			<p id="video_intro"></p>
 
-			<form class="comment" action="/comment" method="post">
+			<form class="comment" action="/comment/" method="post">
 				<textarea name="content" class="parent_wide"></textarea>
 				<input type="submit" value="Submit" />
 			</form>
