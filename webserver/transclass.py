@@ -1,8 +1,9 @@
 import web
 import model
 import fileServerApi
-from main import fs
 
+### FileServer
+fs = fileServerApi.FileServer('http://localhost:17007')
 
 def user_trans(full_user):
     new_user = model.User()
