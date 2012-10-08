@@ -1,12 +1,14 @@
 $def with (page_info)
+
 $var title: $page_info.title
+$var css: login.css
 
 $:elements.header("")
 
 <div class="main_content">
-	<form action="/login" method="post">
-		mail<input type="text" name="username" /><br/>
-		pwd<input type="password" name="password" /><br/>
+	<form action="/login" method="post" class="typical_form">
+		<input type="text" name="username" class="input_large" placeholder="E-mail" />
+		<input type="password" name="password" class="input_large" placeholder="Password" />
 		<input type="submit" value="Login" />
 	</form>
 </div>
