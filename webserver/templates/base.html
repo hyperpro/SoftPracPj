@@ -1,11 +1,25 @@
 $def with (page)
 
+$ message = '' 
+$ error = ''
+$ title = ''
+
+$if not page.info is None:
+	$ pinfo = page.info
+
+	$if pinfo.message:
+		$ message = pinfo.message
+	$if pinfo.error:
+		$ error = pinfo.error
+	$if pinfo.title:
+		$ title = pinfo.title
+
 <!DOCTYPE HTML>
 <html lang="en">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-		$if 'title' in page and page.title:
-			<title>$page.title - VideoShare</title>
+		$if title:
+			<title>$title - VideoShare</title>
 		$else:
 			<title>VideoShare</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -20,7 +34,7 @@ $def with (page)
 
 	<body>
 
-		$:elements.message(page.message, page.error)
+		$:elements.message(message, error)
 		
 		$:page
 		
