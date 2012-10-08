@@ -138,6 +138,7 @@ class Upload:
             # do something
             return
         web.debug(key)
+        
         # do somthing
 
 
@@ -152,15 +153,20 @@ class Edit:
 
     def GET(self, id):
         page_info = PageInfo('Edit')
-        return render.edit(default_video, default_user, page_info)
+        current_video = transclass.video_trans(get_video(id).video)
+        current_user = transclass.user_trans(get_user(id).user);
+        return render.edit(current_video,current_user,page_info)
+        #return render.edit(default_video, default_user, page_info)
     def POST(self,id):
         data = web.input()
-        ##ans = modify_video(id, data.video_name, data.video_intro)
-        ans = True ##waiting for delete
+        current_video = transclass.video_trans(get_video(id).video)
+        ans, temp_video = modify_video(id, data.video_name, data.video_intro)
+        current_user = transclass.video_trans(get_user(session.get_user_id).user)
         if ans:
+            current_video = transclass.video_trans(temp_video)
             page_info = PageInfo('Edit',message = '保存成功！')
-            return render.edit(default_video,default_user,page_info)
+            return render.edit(current_video,current_user,page_info)
         else:
             page_info = PageInfo('Edit',message = '保存失败，请再试！')
-            return render.edit(default_video,default_user,page_info)
+            return render.edit(current_video,current_user,page_info)
             
