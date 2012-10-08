@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 
 import web
-from settings import db
+import settings
 
 def add_sessions_to_app(app):
     if web.config.get('_session') is None:
-        store = web.session.DBStore(db, 'sessions')
+        store = web.session.DBStore(settings.db, 'sessions')
         session = web.session.Session(app, store,
             initializer={'is_logged' : False, 'userid':'guest'})
         web.config.session_parameters['ignore_expiry'] = False
