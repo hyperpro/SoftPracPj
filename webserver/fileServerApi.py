@@ -71,7 +71,7 @@ class FileServer:
             return 'delete: status code = ' + resp['status']
         return None
 
-    def getThumbURL(self, key):
+    def getThumbURL(self, key, mode=1):
         """
         input:  key
         return: thumbURL, err
@@ -83,4 +83,4 @@ class FileServer:
 
         if resp['status'] != '200':
             return (None, 'get: status code = ' + resp['status'])
-        return (content + '?thumb=1', None)
+        return (content + '?thumb=' + str(mode), None)
