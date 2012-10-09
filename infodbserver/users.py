@@ -15,8 +15,8 @@ def get_user(userId):
     if len(results)==0:
         return None
     else:
-        videoKeyValueList = videos.get_videoKeyValueList(userId)
-        return bigUser.BigUser(results[0], videoKeyValueList)
+        videoList = videos.get_videoList(userId)
+        return bigUser.BigUser(results[0], videoList)
 
 #check userName and passwd is of the same user
 #if is right, return this user
@@ -27,8 +27,8 @@ def check_user(userName, passwd):
         results = db.select('users', myvar, where="mail = $uName and passwd = $upwd")
     if len(results)>0:
         temp = results[0]
-        videoKeyValueList = videos.get_videoKeyValueList(temp['userId'])
-        return bigUser.BigUser(temp, videoKeyValueList)
+        videoList = videos.get_videoList(temp['userId'])
+        return bigUser.BigUser(temp, videoList)
     else:
         return None
 
@@ -46,6 +46,6 @@ def insert_user(userName, pwd, mail, picKey, isVip, videoCount, publicVideoCount
     except:
         return None
     
-    
 
+    
         

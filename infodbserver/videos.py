@@ -34,7 +34,7 @@ def get_video(videoId):
     return bigVideo.BigVideo(results[0])
     
 #modify the video and return it if successfully
-def modify_video(videoId, videoName, ownerId, keyValue, intro, isPublic, recommendCount, commentCount, category):
+def modify_video(videoId, videoName, ownerId, keyValue, intro, isPublic, recommendCount, commentCount, category, type):
     if videoId is None:
         return None
     
@@ -55,6 +55,8 @@ def modify_video(videoId, videoName, ownerId, keyValue, intro, isPublic, recomme
         vars['commentCount'] = commentCount
     if category is not None:
         vars['category'] = category
+    if type is not None:
+        vars['type'] = type
     sql  = "update videos set "
     length = len(vars.keys())
     count = 1
@@ -73,6 +75,21 @@ def modify_video(videoId, videoName, ownerId, keyValue, intro, isPublic, recomme
     except Exception,e:
         return None
    
+#get Video List by ownerId
+#if not exit return None, else return Video List
+def get_videoList(ownerId):
+    if ownerId is None:
+        return None
+    myvar = dict(uId = ownerId)
+    results = db.select('videos', myvar, where="ownerId = $uId")
+    if len(results)==0:
+        return None
+    else:
+        videos = []
+        for x in results:
+            videos.append(bigVideo.BigVideo(x))
+        return videos
+    
 #get Video ID list by ownerId
 #if not exit return None, else return keyValue List
 def get_videoKeyValueList(ownerId):
@@ -88,6 +105,11 @@ def get_videoKeyValueList(ownerId):
             keyValueList.append(x.keyValue)
         return keyValueList
         
+        
+if __name__ == "__main__":
+    a = get_videoList(12)
+    for x in a:
+        print x.keyValue
 
    
 

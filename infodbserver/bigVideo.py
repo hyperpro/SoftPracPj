@@ -11,6 +11,7 @@ class BigVideo:
         self.recommendCount = infos['recommendCount']
         self.commentCount = infos['commentCount']
         self.category = infos['category']
+        self.type = infos['type']
         #self.category = None
         #for x in infos:
         #    print x,
