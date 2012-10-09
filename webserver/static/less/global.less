@@ -289,6 +289,14 @@ ul.inline li{
 	margin: 0 auto;
 }
 
+.header .divide{
+	display: inline-block;
+	width: 1em;
+
+	line-height: 1em;
+	border-left: 1px solid @border_color;
+}
+
 
 .main_ops{
 	font-size: @header_height /3;
@@ -428,16 +436,22 @@ footer{
 	color: @base_font_color;
 	cursor: pointer;
 	border-bottom: 1px dashed @border_color;
+	text-align: center;
+	overflow: hidden;
 
 	display: none;
-}
-.video_name{
-	padding: 20px 10px;
 
-	font-size: 14px;
+	.video_name{
+		padding: 15px 10px 10px;
 
-	text-align: center;
+		font-size: 14px;
+	}
+
+	.video_intro{
+		font-size: 12px;
+	}
 }
+
 
 .video_block:hover .video_info_block{
 	display: table-cell;

@@ -3,20 +3,45 @@ $def with (user, me, page_info)
 $var info = page_info
 
 $var css: personal.css
+$var js: personal.js
 
-$:elements.header(me)
+$:elements.header(me, user=user)
+
 <div class="main_content">
-	<div class="user_info">
-		<img id="user_head_img" class="user_head_img" src="$user.pic" height="60" width="60">
-		<span class="sp_text shadow user_name">$user.name</span>
+	<div id="block1" class="block1">
+		<h4 class="block_title">$user.name</h4>
+		<div class="block_content">
+			<div class="user_info">
+				<img id="user_head_img" class="user_head_img" src="$me.pic" height="60" width="60">
+				<span class="sp_text shadow user_name">$user.name</span>
+			</div>
+		</div>
 	</div>
-	<div class="user_videos">
-		<h2 class="shadow">His videos</h2>
-		<ul id="videos" class="inline video_list">
-			$for video in user.videos:
-				<li>
-					$:elements.video_prev(video)
-				</li>
-		</ul>
+	<div id="block2" class="block2 wide_block">
+		<h4 class="block_title">His videos<i id="expand" class="right link" style="display:none;">-></i></h4>
+		<div class="block_content">
+			<div class="user_videos">
+				<ul id="videos" class="inline video_list">
+					$for video in user.videos:
+						<li>
+							$:elements.video_prev(video)
+						</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div id="block3" class="block3 hide_block">
+		<h4 class="block_title">Video<i id="close" class="right link">x</i></h4>
+		<div class="block_content">
+			<h2 id="video_name"></h2>
+			<h4 id="owner"></h4>
+			<video id="video" src="" controls="controls" width="600" height="358">Your browser does not support html5, chrome will work.</video>
+			<p id="video_intro"></p>
+
+			<form class="comment" action="/comment/" method="post">
+				<textarea name="content" class="parent_wide"></textarea>
+				<input type="submit" value="Submit" />
+			</form>
+		</div>
 	</div>
 </div>
