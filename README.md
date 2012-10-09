@@ -39,13 +39,14 @@ FileServer
         初始化:    fs = fileServerApi.FileServer(<file server host>)
 
         上传:      uploadURL, err = fs.putAuth()
-                    key, err = fs.putFile(file, uploadURL)
+                  key, err = fs.putFile(file, uploadURL)
 
         下载:      fileURL, err = fs.getFileURL(key)
 
         删除:      err = fs.deleteFile(key)
 
-        视频缩略图: thumbURL, err = fs.getThumbURL(key)
+        视频缩略图: 200x150大小: thumbURL, err = fs.getThumbURL(key)
+                  原图大小:     thumbURL, err = fs.getThumbURL(key, 0)
 
 Webserver
 ---------
