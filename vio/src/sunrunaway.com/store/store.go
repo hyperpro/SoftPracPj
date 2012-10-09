@@ -5,6 +5,11 @@ import (
 	"os"
 	"os/exec"
 	"path"
+	"errors"
+)
+
+var (
+	EThumb = errors.New("Get thumb failed.")
 )
 
 type ReadSeekCloser interface {
@@ -72,11 +77,22 @@ func (s *fileRemover) Close() error {
 
 const coverImg = "/tmp/cover.jpg"
 
-func (s *Store) GetThumb(key string) (r ReadSeekCloser, length int64, err error) {
+func (s *Store) GetThumb(key string, mode string) (r ReadSeekCloser, length int64, err error) {
 
 	filename := path.Clean(s.root + "/" + key)
 
-	cmd := exec.Command("ffmpeg", "-ss", "00:00:02", "-i", filename, coverImg, "-r", "1", "-vframes", "1", "-an", "-f", "mjpeg")
+	var cmd *exec.Cmd
+	switch mode {
+	case "0":
+		cmd = exec.Command("ffmpeg", "-ss", "00:00:02", "-i", filename, coverImg, "-r", "1", "-vframes", "1", "-an", "-f", "mjpeg")
+	case "1":
+		cmd = exec.Command("ffmpeg", "-ss", "00:00:02", "-i", filename, "-s", "200x150", coverImg, "-r", "1", "-vframes", "1", "-an", "-f", "mjpeg")
+	}
+
+	if cmd == nil {
+		err = EThumb
+		return
+	}
 	cmd.Run()
 
 	f, err := os.Open(coverImg)

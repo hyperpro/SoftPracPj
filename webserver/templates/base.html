@@ -4,7 +4,7 @@ $ message = ''
 $ error = ''
 $ title = ''
 
-$if not page.info is None:
+$if page.info:
 	$ pinfo = page.info
 
 	$if pinfo.message:

@@ -1,4 +1,4 @@
-$def with (me)
+$def with (me, user="", video="")
 <div class="header">
 	<div class="header_content">
 		
@@ -7,6 +7,13 @@ $def with (me)
 				<a href="/" class=""><li class="main_op">Home</li></a>
 				<a href="/upload" class=""><li class="main_op">Upload Video</li></a>
 				<a href="/logout" class=""><li class="main_op">Log Out</li></a>
+				$if user:
+					<li class="divide">&nbsp;</li>
+					<a href="/personal/$user.id" class=""><li class="main_op">$user.name</li></a>
+
+				$if video:
+					<li class="divide">&nbsp;</li>
+					<a href="/video/$video.key" class=""><li class="main_op">$video.name</li></a>
 			</ul>
 			<div class="my_info right">
 				<a href="/personal/$me.id">
