@@ -59,8 +59,8 @@ func New(stg *store.Store, myhost string, urlExpireTime int64, acc map[string]st
 //
 // GET /get-thumb/<key>
 //
-func (s *Service) getThumb(w http.ResponseWriter, key string) {
-	r, length, err := s.stg.GetThumb(key)
+func (s *Service) getThumb(w http.ResponseWriter, key string, mode string) {
+	r, length, err := s.stg.GetThumb(key, mode)
 	if err != nil {
 		log.Println("getThumb: s.stg.Get error:", err)
 		w.WriteHeader(404)
@@ -75,7 +75,7 @@ func (s *Service) getThumb(w http.ResponseWriter, key string) {
 }
 
 //
-// GET /file/<encodedKeyHandle>(?thumb=1)
+// GET /file/<encodedKeyHandle>(?thumb=0, 1)
 //
 func (s *Service) file(w http.ResponseWriter, req *http.Request) {
 	query := strings.Split(req.URL.Path[1:], "/")
@@ -99,8 +99,8 @@ func (s *Service) file(w http.ResponseWriter, req *http.Request) {
 	log.Println("file: key:", key)
 
 
-	if q := req.URL.Query(); q.Get("thumb") == "1" {
-		s.getThumb(w, key)
+	if q := req.URL.Query(); q.Get("thumb") != "" {
+		s.getThumb(w, key, q.Get("thumb"))
 		return
 	}
 

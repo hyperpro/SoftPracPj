@@ -1,14 +1,24 @@
 $def with (page_info)
 
-$var title: $page_info.title
+$var info = page_info
+
 $var css: login.css
+$var js: login.js
 
 $:elements.header("")
 
 <div class="main_content">
-	<form action="/login" method="post" class="typical_form">
-		<input type="text" name="username" class="input_large" placeholder="E-mail" />
-		<input type="password" name="password" class="input_large" placeholder="Password" />
-		<input type="submit" value="Login" />
+	<form action="/login" method="post" class="typical_form" id="login_form">
+		<div class="input_block">
+			<input id="name_in" type="text" name="username" class="input_large" placeholder="Username" />
+			<i class="form_tip">Can't be blank</i>
+		</div>
+		<div class="input_block">
+			<input id="pwd_in" type="password" name="password" class="input_large" placeholder="Password" />
+			<i class="form_tip">Can't be blank</i>
+		</div>
+		<div class="input_block">
+			<input id="submit" type="submit" value="Login" />
+		</div>
 	</form>
 </div>

@@ -1,10 +1,11 @@
 ﻿$def with (video, me, page_info)
-$var title: $page_info.title
+
+$var info = page_info
 
 $:elements.header(me)
 
 <div class="main_content">
-	<form action="/edit" method="post">
+	<form action="/edit/$video.id" method="post">
 		视频预览：$:elements.video_prev(video)<br/>
 		视频名称：<input type="text" name="video_name" value="$video.name" /><br/>
 		视频介绍：<textarea name="video_intro"></textarea><br/>

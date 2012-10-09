@@ -20,6 +20,9 @@
 @base_font_color: #333;
 
 @highlight_color: #4D90FE;
+@highlight_font_color: #fff;
+
+@error_color:rgb(190, 60, 60);
 
 //length
 @header_height: 50px;
@@ -216,9 +219,9 @@ ul.inline li{
 	cursor: pointer;
 }
 .btn:hover, input[type="submit"]:hover{
-	border-color: @base_background_color;
-	background-color: @base_background_color;
-	color: @base_font_color;
+	border-color: @highlight_color;
+	background-color: @highlight_color;
+	color: @highlight_font_color;
 }
 .btn_highlight, input[type="submit"].btn_highlight{
 	border: 1px solid @input_border_highlight_color;
@@ -254,11 +257,22 @@ ul.inline li{
 
 /*----------------------------------- Form -----------------------------*/
 
-.typical_form > input[type="text"], .typical_form > input[type="password"] {
-	display: block;
-	margin:0px 0px 20px;
+.typical_form .input_block{
+	margin:20px 0px 10px;
+
+	.form_tip{
+		margin-left: 10px;
+
+		display: none;
+	}
+	.error{
+		color: @error_color;
+	}
+}
+.typical_form input[type="text"], .typical_form input[type="password"] {
 	padding: 5px 10px;
 }
+
 
 /*----------------------------------------------------------------------*/
 
@@ -273,6 +287,14 @@ ul.inline li{
 	position: relative;
 	width: 960px;
 	margin: 0 auto;
+}
+
+.header .divide{
+	display: inline-block;
+	width: 1em;
+
+	line-height: 1em;
+	border-left: 1px solid @border_color;
 }
 
 
@@ -321,6 +343,10 @@ ul.inline li{
 
 	*{
 		font-size: 14px;
+	}
+
+	h2{
+		font-size: 20px;
 	}
 
 	div::-webkit-scrollbar {
@@ -409,16 +435,23 @@ footer{
 	background-color: @base_background_color;
 	color: @base_font_color;
 	cursor: pointer;
+	border-bottom: 1px dashed @border_color;
+	text-align: center;
+	overflow: hidden;
 
 	display: none;
-}
-.video_name{
-	padding: 20px 10px;
 
-	font-size: 14px;
+	.video_name{
+		padding: 15px 10px 10px;
 
-	text-align: center;
+		font-size: 14px;
+	}
+
+	.video_intro{
+		font-size: 12px;
+	}
 }
+
 
 .video_block:hover .video_info_block{
 	display: table-cell;
