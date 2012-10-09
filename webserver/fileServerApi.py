@@ -73,7 +73,9 @@ class FileServer:
 
     def getThumbURL(self, key, mode=1):
         """
-        input:  key
+        input:  key, mode
+                mode=0: thumb is origin size
+                mode=1: thumb is 200x150
         return: thumbURL, err
         """
         try:

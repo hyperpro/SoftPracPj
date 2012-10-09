@@ -75,7 +75,7 @@ func (s *Service) getThumb(w http.ResponseWriter, key string, mode string) {
 }
 
 //
-// GET /file/<encodedKeyHandle>(?thumb=1, 2)
+// GET /file/<encodedKeyHandle>(?thumb=0, 1)
 //
 func (s *Service) file(w http.ResponseWriter, req *http.Request) {
 	query := strings.Split(req.URL.Path[1:], "/")
