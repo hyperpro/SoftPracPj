@@ -16,8 +16,9 @@ def user_trans(full_user):
         new_user.pic = ""
     else:
         new_user.pic = thumbURL
-    for element in full_user.video:
-        new_user.add_video(video_trans(element))
+    if full_user.videoKeys != None:
+        for element in full_user.videoKeys:
+            new_user.add_video(video_trans(element))
     return new_user
         
         
@@ -29,12 +30,13 @@ def video_trans(full_video):
     new_video.intro = full_video.intro
     new_video.upload_time = full_video.uploadTime
     new_video.key = full_video.keyValue
+    new_video.type = "" ##waiting for changing
     thumbURL, err = fs.getThumbURL(full_video.keyValue)
     if err!=None:
         new_video.prev = ""
     else:
         new_video.prev = thumbURL
-    fileURL, err = fs.getFileURL(full_video.key)
+    fileURL, err = fs.getFileURL(full_video.keyValue)
     if err!=None:
         new_video.src = ""
     else:

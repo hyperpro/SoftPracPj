@@ -20,16 +20,6 @@ render = web.template.render('templates', base='base', globals=t_globals)
 ### FileServer
 fs = fileServerApi.FileServer('http://localhost:17007')
 
-### Default Models
-default_user = model.User()
-for i in range(1, 8):
-    str_i = str(i)
-    temp = model.Video(str_i, 'video' + str_i, 'test' + str_i, 'intro of video' + str_i, 'upload_time' + str_i, i)
-    default_user.add_video(temp)
-
-default_video = model.Video('1','video1', 'test1', 'intro of video1', 'upload_time1', 1)
-
-
 
 
 def notfound(me=''):    
@@ -98,7 +88,7 @@ class Register:
     def POST(self):
         data = web.input()
         if data.password != data.password_confirm:
-            page_info = PageInfo('Register',err = 'two passwords are not same')
+            page_info = PageInfo('Register',error = 'two passwords are not same')
             return render.register(page_info)
         else:
             answer, temp_user = infoDBserver.insert_user(userName = data.username, pwd = data.password, mail = data.email)
@@ -109,7 +99,7 @@ class Register:
                 session.login(temp_user.userId)
                 raise web.seeother('/')
             else:
-                page_info = PageInfo('Register',err = 'input error')
+                page_info = PageInfo('Register',error = 'input error')
                 return render.register(page_info)
             
         
@@ -146,13 +136,13 @@ class Upload:
         encodedURL = base64.urlsafe_b64encode(uploadURL)
 
         page_info = PageInfo('Upload')
-        ##ans, temp_user = get_user(session.get_user_id())
-        ##if ans:
-            ##current_user = transclass.user_trans(temp_user)
-            ##render.upload(current_user, page_info,encodedURL)
-        ##else:
-            ##return web.notfound()
-        return render.upload(default_user, page_info, encodedURL)
+        ans, temp_user = infoDBserver.get_user(session.get_user_id())
+        if ans:
+            current_user = transclass.user_trans(temp_user)
+            return render.upload(current_user, page_info,encodedURL)
+        else:
+            return web.notfound()
+        ##return render.upload(default_user, page_info, encodedURL)
 
     def POST(self, encodedURL):
         uploadURL = base64.urlsafe_b64decode(str(encodedURL))
@@ -160,11 +150,17 @@ class Upload:
         key, err = fs.putFile(x['up_file'].file, uploadURL)
         if err != None:
             web.debug(err)
-            #raise web.seeother('/upload')
+            raise web.seeother('/upload')
             # do something
             return
         web.debug(key)
-        ##raise web.seeother('/')
+        ans, video = infoDBserver.insert_video(key, session.get_user_id())
+        ans, video2 = infoDBserver.modify_video(video.videoId,type = 'ogg') ##owowow
+        ##waiting for type changing
+        if ans:
+            raise web.seeother('/')
+        else:
+            raise web.seeother('/upload')
         # do somthing
 
 
@@ -172,45 +168,44 @@ class Video:
 
     def GET(self, id):
         page_info = PageInfo('Video')
-        ##ans1, temp_video = get_video(id)
-        ##current_video = transclass.video_trans(temp_video)
-        ##ans2, temp_user = get_user(session.get_user_id())
-        ##current_user = transclass.user_trans(temp_user)
-        ##if ans1 and ans2:
-            ##return render.video(current_video,current_user,page_info)
-        ##else:
-            ##raise web.nofound() 
-        return render.video(default_video, default_user, page_info)
+        ans1, temp_video = infoDBserver.get_video(id)
+        current_video = transclass.video_trans(temp_video)
+        ans2, temp_user = infoDBserver.get_user(session.get_user_id())
+        current_user = transclass.user_trans(temp_user)
+        if ans1 and ans2:
+            return render.video(current_video,current_user,page_info)
+        else:
+            raise web.nofound() 
 
 
 class Edit:
 
     def GET(self, id):
         page_info = PageInfo('Edit')
-        ##ans1, temp_video = get_video(id)
-        ##ans2, temp_user = get_user(session.get_user_id())
-        ##if ans1 and ans2:
-            ##current_video = transclass.video_trans(temp_video)
-            ##current_user = transclass.user_trans(temp_user)
-            ##return render.edit(current_video,current_user,page_info)
-        ##else:
-            ##raise web.nofound()
-        return render.edit(default_video, default_user, page_info)
+        ans1, temp_video = infoDBserver.get_video(id)
+        ans2, temp_user = infoDBserver.get_user(session.get_user_id())
+        if ans1 and ans2:
+            current_video = transclass.video_trans(temp_video)
+            current_user = transclass.user_trans(temp_user)
+            return render.edit(current_video,current_user,page_info)
+        else:
+            raise web.nofound()
+        return render.edit(current_video, current_user, page_info)
     def POST(self,id):
         data = web.input()
         page_info = PageInfo('Edit')
-        return render.edit(default_video, default_user,page_info)
-        ##ans, temp_video = modify_video(id, name = data.video_name, intro =  data.video_intro)
-        ##ans2, temp_user = get_user(session.get_user_id()).
-        ##if ans2:
-            ##current_user = transclass.user_trans(temp_user)
-        ##else:
-            ##raise web.nofound()
-        ##if ans:
-          ##  current_video = transclass.video_trans(temp_video)
-          ##  page_info = PageInfo('Edit',message = '保存成功！')
-          ##  return render.edit(current_video,current_user,page_info)
-        ##else:
-          ##  page_info = PageInfo('Edit',err = '保存失败，请再试！')
-          ##  return render.edit(current_video,current_user,page_info)
+        ##return render.edit(default_video, default_user,page_info)
+        ans, temp_video = infoDBserver.modify_video(id, videoName = data.video_name, intro =  data.video_intro)
+        ans2, temp_user = infoDBserver.get_user(session.get_user_id())
+        if ans2:
+            current_user = transclass.user_trans(temp_user)
+        else:
+            raise web.nofound()
+        if ans:
+            current_video = transclass.video_trans(temp_video)
+            page_info = PageInfo('Edit',message = '保存成功！')
+            return render.edit(current_video,current_user,page_info)
+        else:
+            page_info = PageInfo('Edit',err = '保存失败，请再试！')
+            return render.edit(current_video,current_user,page_info)
             

@@ -70,11 +70,11 @@ def insert_video(keyValue, ownerId):
 
 #modify the attribute of the video
 #return(isModified, Video)
-def modify_video(videoId, videoName=None, ownerId=None, keyValue=None, intro=None, uploadTime=None, isPublic=None, recommendCount=None, commentCount=None, category=None):
+def modify_video(videoId, videoName=None, ownerId=None, keyValue=None, intro=None, uploadTime=None, isPublic=None, recommendCount=None, commentCount=None, category=None, type=None):
     if videoId is None:
         return False, None
     else:
-        oneVideo = videos.modify_video(videoId, videoName, ownerId, keyValue, intro, isPublic, recommendCount, commentCount, category)
+        oneVideo = videos.modify_video(videoId, videoName, ownerId, keyValue, intro, isPublic, recommendCount, commentCount, category, type)
         if oneVideo is None:
             return False, None
         else:
