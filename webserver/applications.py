@@ -29,8 +29,8 @@ default_video = model.Video('1','video1', 'test1', 'intro of video1', 'upload_ti
 
 
 
-def notfound():
-    return web.notfound(render.notfound())
+def notfound(me=''):    
+    return web.notfound(render.notfound(me))
 
 class PageInfo:
     def __init__(self, title, message = "", error = ""):
@@ -153,8 +153,8 @@ class Upload:
 
     def POST(self, encodedURL):
         uploadURL = base64.urlsafe_b64decode(str(encodedURL))
-        x = web.input(up_img={})
-        key, err = fs.putFile(x['up_img'].file, uploadURL)
+        x = web.input(up_file={})
+        key, err = fs.putFile(x['up_file'].file, uploadURL)
         if err != None:
             web.debug(err)
             #raise web.seeother('/upload')
