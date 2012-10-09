@@ -2,8 +2,8 @@
 import bigVideo
 
 import sys
-sys.path.append("..")
-from webserver.settings import db
+sys.path.append("../webserver")
+from settings import db
 
 
 

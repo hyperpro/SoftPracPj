@@ -6,6 +6,9 @@ import model
 import fileServerApi
 import session
 import transclass
+import sys
+sys.path.append("../infodbserver")
+import infoDBserver
 
 ### Templates
 elements = web.template.render('templates/elements')
@@ -47,14 +50,14 @@ class Index:
         if temp:
             page_info = PageInfo('Index')
             current_userid = session.get_user_id()
-            ##ans, temp_user = get_user(current_userid)
-            ##if ans: 
-                ##current_user = transclass.user_trans(temp_user)
-            ##else:
-            ##    raise web.notfound()
-            ##return render.index(current_user, page_info)
-            current_user = default_user
-            return render.index(default_user, page_info)
+            ans, temp_user = infoDBserver.get_user(current_userid)
+            if ans: 
+                current_user = transclass.user_trans(temp_user)
+            else:
+                raise web.seeother('/login')
+            return render.index(current_user, page_info)
+            ##current_user = default_user
+            ##return render.index(default_user, page_info)
         else:
             raise web.seeother('/login')
 
@@ -67,14 +70,14 @@ class Login:
 
     def POST(self):
         data = web.input()
-        #ans, current_user = check_user(username = data.username, password = data.password)
-        answer = True  ## waiting for delete
-        current_user = default_user ## also should be changed
-        if answer:
-            session.login(current_user.name)
+        ans, current_user = infoDBserver.check_user(userName = data.username, passwd = data.password)
+        ##answer = True  ## waiting for delete
+        ##current_user = default_user ## also should be changed
+        if ans:
+            session.login(current_user.userId)
             raise web.seeother('/')
         else:
-            page_info = PageInfo('Login','Message Error')
+            page_info = PageInfo('Login','用户名密码错误！')
             return render.login(page_info)
             
 
@@ -94,16 +97,16 @@ class Register:
         return render.register(page_info)
     def POST(self):
         data = web.input()
-        if data.password != data.password_comfirm:
+        if data.password != data.password_confirm:
             page_info = PageInfo('Register',err = 'two passwords are not same')
             return render.register(page_info)
         else:
-            ##answer, temp_user = insert_user(pwd = data.password,username = data.username)
-            answer = True ## waiting for delete
-            id = 1 ##
+            answer, temp_user = infoDBserver.insert_user(userName = data.username, pwd = data.password, mail = data.email)
+            ##answer = True ## waiting for delete
+            ##id = 1 ##
             if answer:
                 ##session.login(temp_user.id)
-                session.login(id)
+                session.login(temp_user.userId)
                 raise web.seeother('/')
             else:
                 page_info = PageInfo('Register',err = 'input error')

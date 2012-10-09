@@ -3,17 +3,8 @@
 import bigUser
 
 import sys
-#if not "../webserver/" in sys.path:
-#    sys.path.append("../webserver/")
-#if not 'settings' in sys.modules:
-#    settings = __import__('settings')
-#else:
-#    eval('import settings')
-#    settings = eval('reload(settings)')
-
-import sys
-sys.path.append("..")
-from webserver.settings import db
+sys.path.append("../webserver")
+from settings import db
 
 #get a user by userid, if user is noe exit, return None; else return this User 
 def get_user(userId): 
