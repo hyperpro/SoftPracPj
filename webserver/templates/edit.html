@@ -2,13 +2,22 @@
 
 $var info = page_info
 
-$:elements.header(me)
+$var js: edit.js
+
+$:elements.header(me, video=video)
 
 <div class="main_content">
-	<form action="/edit/$video.id" method="post">
-		视频预览：$:elements.video_prev(video)<br/>
-		视频名称：<input type="text" name="video_name" value="$video.name" /><br/>
-		视频介绍：<textarea name="video_intro"></textarea><br/>
-		<input type="submit" value="提交" />
+	<form id="edit_form" class="typical_form" action="/edit/$video.id" method="post">
+		$:elements.video_prev(video)
+		<div class="input_block">
+			<input id="name_in" class="input_large" type="text" name="video_name" value="$video.name" placeholder="Video name" />
+			<i class="form_tip"></i>
+		</div>
+		<div class="input_block">
+			<textarea id="intro_in" name="video_intro"  placeholder="Video intro"></textarea>
+		</div>
+		<div class="input_block">
+			<input id="submit" type="submit" value="提交" />
+		</div>
 	</form>
 </div>

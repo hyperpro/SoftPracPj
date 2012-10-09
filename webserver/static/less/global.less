@@ -30,6 +30,9 @@
 //length
 @header_height: 50px;
 
+@video_prev_width:140px;
+//@video_prev_height:;
+
 @radius: 3px;
 
 html{
@@ -428,13 +431,14 @@ footer{
 }
 
 .video_block{	
+	width: @video_prev_width;
 	position: relative;
 
 	font-size: 0;
 }
 
 .video_prev{
-	width: 140px;
+	width: @video_prev_width;
 	background-color: @background_color;
 }
 .video_info_block{
