@@ -32,7 +32,7 @@ def check_user(userName, passwd):
 
 #insert a user with a list of user attributes
 #return (isInserted, User)
-def insert_user(userName, pwd, mail , picKey=None, isVip=False, videoCount=0, publicVideoCount=0, interest=None):
+def insert_user(userName, pwd, mail, picKey=None, isVip=False, videoCount=0, publicVideoCount=0, interest=None):
     if userName is None or pwd is None or mail is None:
         return False, None
     else:
@@ -44,6 +44,18 @@ def insert_user(userName, pwd, mail , picKey=None, isVip=False, videoCount=0, pu
 
 #for videos
 
+#get Video by videoId
+#return (isVideoExit, Video)
+def get_video(videoId):
+    if videoId is None:
+        return False,None
+    else:
+        oneVideo = videos.get_video(videoId)
+        if oneVideo is None:
+            return False, None
+        else:
+            return True, oneVideo
+        
 #if Video=None, then isVideoExit= false, else isVideoExit=true
 #return (isVideoExit, Video(with videoId, ownId, keyValue))
 def insert_video(keyValue, ownerId):
@@ -71,8 +83,4 @@ def modify_video(videoId, videoName=None, ownerId=None, keyValue=None, intro=Non
         
         
         
-        
-        
-if __name__ == "__main__":
-    a,b = modify_video(68,videoName='f',keyValue='fadudan',isPublic=True)
-    print a,b.videoId
+

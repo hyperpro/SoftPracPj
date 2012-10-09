@@ -73,6 +73,21 @@ def modify_video(videoId, videoName, ownerId, keyValue, intro, isPublic, recomme
     except Exception,e:
         return None
    
+#get Video ID list by ownerId
+#if not exit return None, else return keyValue List
+def get_videoKeyValueList(ownerId):
+    if ownerId is None:
+        return None
+    myvar = dict(uId = ownerId)
+    results = db.select('videos', myvar,  where="ownerId = $uId", what= "keyValue")
+    if len(results)==0:
+        return None
+    else:
+        keyValueList = []
+        for x in results:
+            keyValueList.append(x.keyValue)
+        return keyValueList
+        
 
    
 

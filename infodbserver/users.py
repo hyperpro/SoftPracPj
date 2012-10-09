@@ -1,6 +1,8 @@
 #operate of the whole users table in the database
 
 import bigUser
+import videos
+
 
 import sys
 sys.path.append("../webserver")
@@ -12,21 +14,23 @@ def get_user(userId):
     results = db.select('users', myvar, where="userId = $uid")
     if len(results)==0:
         return None
-    return bigUser.BigUser(results[0])
+    else:
+        videoKeyValueList = videos.get_videoKeyValueList(userId)
+        return bigUser.BigUser(results[0], videoKeyValueList)
 
 #check userName and passwd is of the same user
 #if is right, return this user
 def check_user(userName, passwd):
     myvar = dict(uName=userName, upwd=passwd)
     results = db.select('users', myvar, where="userName = $uName and passwd = $upwd")
-    if len(results)>0:
-        return bigUser.BigUser(results[0])
-    else:
+    if results is None or len(results)==0:
         results = db.select('users', myvar, where="mail = $uName and passwd = $upwd")
-        if len(results)>0:
-            return bigUser.BigUser(results[0])
-        else:
-            return None
+    if len(results)>0:
+        temp = results[0]
+        videoKeyValueList = videos.get_videoKeyValueList(temp['userId'])
+        return bigUser.BigUser(temp, videoKeyValueList)
+    else:
+        return None
 
 #insert a user to table users
 #if is success return this user
@@ -36,15 +40,12 @@ def insert_user(userName, pwd, mail, picKey, isVip, videoCount, publicVideoCount
         myvar = dict(uName=userName)
         results = db.select('users', myvar, where="userName=$uName") 
         if len(results)>0:
-            return bigUser.BigUser(results[0])
+            return bigUser.BigUser(results[0],[])
         else:
             return None
     except:
         return None
     
     
-if __name__ == "__main__":
-    print 'begin'
-    a = get_user(12)
-    print a.userId,a.mail, a.picKey,a.isVip, a.videoCount
+
         

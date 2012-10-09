@@ -1,6 +1,6 @@
 # is a tuple of table users and some operations about it
 class BigUser:
-    def __init__(self,infos):
+    def __init__(self, infos, videoKeyValueList):
         self.userId = infos['userId']
         self.userName = infos['userName']
         self.passwd = infos['passwd']
@@ -10,4 +10,5 @@ class BigUser:
         self.videoCount = infos['videoCount']
         self.publicVideoCount = infos['publicVideoCount']
         self.interest = infos['interest']
+        self.videoKeys = videoKeyValueList
                
