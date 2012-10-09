@@ -2,11 +2,20 @@ $def with (me, page_info, encodedURL)
 
 $var info = page_info
 
+$var js: upload.js
+
 $:elements.header(me)
 <div class="main_content">
-	<h2 id="my_name">$me.name</h2>
-	<form action="/upload/$encodedURL" method="post" enctype="multipart/form-data">
-		<input type="file" name="up_img" />
-		<input type="submit" value="upload" />
+	<form id="upload_form" class="typical_form" action="/upload/$encodedURL" method="post" enctype="multipart/form-data">
+		<h4>注意：目前只支持 mp4，ogg，webm 三种格式的视频上传</h4>
+		<div class="input_block">
+			<input type="file" name="up_file" />
+			<input type="hidden" name="file_type" value="" />
+			<button class="btn" id="choose" >未选择文件...</button>
+			<i class="form_tip"></i>
+		</div>
+		<div class="input_block">
+			<input id='submit' type="submit" value="upload" />
+		</div>
 	</form>
 </div>

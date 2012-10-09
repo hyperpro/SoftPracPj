@@ -11,7 +11,7 @@
 @border_font_color: #333;
 
 @input_border_color: #858585;
-@input_border_highlight_color: #4D90FE;
+@input_border_highlight_color: #0391C9;
 
 @shadow_color: #ccc;
 
@@ -19,8 +19,11 @@
 @base_background_color: #fff;
 @base_font_color: #333;
 
-@highlight_color: #4D90FE;
+@highlight_color: #0391C9;
 @highlight_font_color: #fff;
+
+@stress_color: #00a0de;
+@stress_font_color: #fff;
 
 @error_color:rgb(190, 60, 60);
 
@@ -223,15 +226,15 @@ ul.inline li{
 	background-color: @highlight_color;
 	color: @highlight_font_color;
 }
-.btn_highlight, input[type="submit"].btn_highlight{
-	border: 1px solid @input_border_highlight_color;
-	background-color: @base_background_color;
-	color: @base_font_color;
+.btn_stress, input[type="submit"].btn_stress{
+	border: 1px solid @stress_color;
+	background-color: @stress_color;
+	color: @stress_font_color;
 }
-.btn_highlight:hover, input[type="submit"].btn_highlight:hover{
+.btn_stress:hover, input[type="submit"].btn_stress:hover{
 	background-color: @highlight_color;
 }
-.btn_highlight .icon{
+.btn_stress .icon{
 	background-image: url(../img/rev_icons.png);
 }
 .btn_small, input[type="submit"].btn_small{
@@ -257,21 +260,29 @@ ul.inline li{
 
 /*----------------------------------- Form -----------------------------*/
 
-.typical_form .input_block{
-	margin:20px 0px 10px;
+.typical_form {
+	.input_block{
+		margin:20px 0px 10px;
 
-	.form_tip{
-		margin-left: 10px;
+		.form_tip{
+			margin-left: 10px;
 
+			display: none;
+		}
+		.error{
+			color: @error_color;
+		}
+	}
+
+	input[type="text"], input[type="password"] {
+		padding: 5px 10px;
+	}
+
+	input[type="file"]{
 		display: none;
 	}
-	.error{
-		color: @error_color;
-	}
 }
-.typical_form input[type="text"], .typical_form input[type="password"] {
-	padding: 5px 10px;
-}
+
 
 
 /*----------------------------------------------------------------------*/
