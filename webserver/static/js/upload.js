@@ -14,11 +14,12 @@ $(function(){
 				tip.addClass('error').text("File type not support!").fadeIn('slow').delay(2000).fadeOut('slow');
 			}else{
 				$('input[name=file_type]').val(file_type);
+				
 				tip.removeClass('error');
+				$('#submit').addClass('btn_stress');
 			}
 
 			$('#choose').text(file_name);
-			$('#submit').addClass('btn_stress');
 		}else{
 			tip.addClass('error').text("Please choose a file!").fadeIn('slow').delay(2000).fadeOut('slow');
 
