@@ -1,0 +1,50 @@
+数据库表属性：
+
+一、videos属性：
+videoId(serial,primary key)
+videoName(varchar(255)，default Null）
+ownerId(varchar(255),not Null）
+keyValue(varchar(255),not Null, unique)： 对应的视频存放的key
+intro(varchar(255),default null）： 视频的信息
+uploadTime(timestamp）:上传日期
+isPublic(boolean,实际实现为tinyint,default false）:是否为公开的视频
+recommendCount(unsigned mediumint<8388608,default 0):被推荐次数
+commentCount(unsigned smallint<32768,default 0): 评论次数
+category(varchar（255）,defalut null)： 类别（如军事，科幻。。。。）：我在想的是，当视频的表太大时，可否通过不同的类别，分拆为多个表
+关键字：videoId
+
+二、users属性：
+userId(serial,primary key)
+userName(varchar(255),非空,unique)
+passwd(varchar(255),非空)
+mail(varchar(255), not null, unique）
+picKey(varchar(255),default null):用户图像key
+isVip(boolean,,实际实现为tinyint,default false): 是否为vip用户
+videoCount(unsigned smallint,default 0)： 拥有的视频数
+publicVideoCount(unsigned smallint, default 0)：公开的视频数（不公开的视频数为：videoCount－publicVideoCount计算得到，因此不存）
+interest(varchar(255),default null):关注的主题
+关键字：userId
+唯一属性（unique）：name, mail
+
+三、comments属性（暂时不做）：
+userId(bigInt unsigned,primary key)
+videoId(unsigned int,primary key)
+date(timestamp):日期
+评论内容(text)：限制在140个汉字以内
+关键字：(userId,videoId,date)
+
+四、vipUserAd属性（见需求第12点，暂时不做）：
+userId(bigint unsigned,primary key)
+date(timestamp):日期
+context(text):广告内容
+关键字：userId,date
+
+
+导出整个数据库：
+mysqldump -u 用户名 -p 数据库名 > 导出的文件名 
+导入数据库：
+先创建再导入
+create database videoproject;
+ctrl+D退出 mysql -u root videoproject < videoproject.mysql
+
+
