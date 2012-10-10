@@ -35,7 +35,7 @@ $:elements.header(me)
 		<div class="block_content">
 			<h2 id="video_name"></h2>
 			<h4 id="owner"></h4>
-			<video id="video" src="" controls="controls" width="600" height="358">Your browser does not support html5, chrome will work.</video>
+			$:elements.video_prev(video)
 			<p id="video_intro"></p>
 
 			<form class="comment" action="/comment/" method="post">
