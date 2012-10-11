@@ -1,8 +1,8 @@
 $def with (video)
 
 <video controls="controls" poster="http://sandbox.thewikies.com/vfe-generator/images/big-buck-bunny_poster.jpg" width="640" height="360">
-	$#<source src="$video.src" type="video/$video.type" />
-	<source src="$video.src" type="video/mp4" />
+	<source src="$video.src" type="video/$video.type" />
+	$#<source src="$video.src" type="video/mp4" />
 	<object type="application/x-shockwave-flash" data="http://releases.flowplayer.org/swf/flowplayer-3.2.1.swf" width="640" height="360">
 		<param name="movie" value="http://releases.flowplayer.org/swf/flowplayer-3.2.1.swf" />
 		<param name="allowFullScreen" value="true" />
