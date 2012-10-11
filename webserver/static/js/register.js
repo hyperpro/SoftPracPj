@@ -1,3 +1,5 @@
+
+
 var first_in = true;
 
 $(function(){
@@ -35,6 +37,8 @@ $(function(){
 							_tip.removeClass('error');
 						}
 					}
+					$('#pwd_in').val($.md5($('#pwd_in').val()));
+					$('#pwd_cfm_in').val($.md5($('#pwd_cfm_in').val()));
 				}
 			}
 		}
@@ -42,6 +46,7 @@ $(function(){
 	});
 
 	$('#submit').on('click', function(){
+		alert($('#pwd_in').val());
 		if($('#register_form .error').length>0){
 			$('#register_form .error').fadeIn('fast').delay(2000).fadeOut('slow');
 			return false;

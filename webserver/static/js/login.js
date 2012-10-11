@@ -20,6 +20,7 @@ $(function(){
 			$('#login_form .error').fadeIn('slow').delay(2000).fadeOut('slow');
 			return false;
 		}else{
+			$('#pwd_in').val($.md5($('#pwd_in').val()));
 			return true;
 		}
 	});
