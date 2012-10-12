@@ -1,13 +1,10 @@
-.wide_block{
-	width: 790px;
-	margin-right: 0;
-	.video_block{
-		margin: 5px 5px 5px 5px;
-	}
-}
-.hide_block{
-	display: none;
-}
+@block2_s_width: 832px;
+
+.transparent(@p){
+	-moz-opacity: @p;
+	-khtml-opacity: @p; 
+	opacity: @p;
+} 
 
 .my_info{
 	position: relative;
@@ -20,6 +17,34 @@
 	background-color: whitesmoke;
 	box-shadow: 0 0 2px #ccc;
 }
+
+
+.wide_block{
+	width: @block2_s_width;
+	margin-right: 0;
+	.video_list > li{
+		margin: 5px 5px 5px 5px;
+	}
+}
+.hide_block{
+	display: none;
+}
+
+.normal_block {
+	.video_list > li {
+		height: 40px;
+		overflow: hidden; 
+		margin: 0 0 10px;
+
+		.video_block{
+			margin-top: -20px;
+
+			.video_prev{
+			}
+		}
+	}
+}
+
 
 .my_name{
 	margin: 20px 20px;

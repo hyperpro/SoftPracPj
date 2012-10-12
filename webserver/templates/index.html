@@ -35,8 +35,23 @@ $:elements.header(me)
 		<div class="block_content">
 			<h2 id="video_name"></h2>
 			<h4 id="owner"></h4>
-			<video id="video" src="" controls="controls" width="600" height="358">Your browser does not support html5, chrome will work.</video>
+			$:elements.video_play(video)
 			<p id="video_intro"></p>
+			<p id="share_one_click">
+			<div class="passit_barDiv"><a class="passit_default" href="http://www.passit.cn/bookmark.html" target="_blank"></a></div>
+			<script type="text/javascript">
+			var passit_title = "";
+			var passit_url = "";
+			var passit_content= "";
+			var passit_image= "";
+			var sina_appkey= "";
+			var qq_appkey= "";
+			</script>
+			<script type="text/javascript">
+			bookmark_service_div="qq,kxzt,qqxy,baiduHi,bookmark,baidu,douban,sohuweibo,163weibo,more";
+			bookmark_service="qqkj,sinaweibo,xnzt";</script>
+			<script type="text/javascript" src="http://www.passit.cn/js/passit_bar_new.js?pub=0&simple=1" charset="UTF-8"></script>
+			</p>
 
 			<form class="comment" action="/comment/" method="post">
 				<textarea name="content" class="parent_wide"></textarea>
