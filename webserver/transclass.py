@@ -30,7 +30,7 @@ def video_trans(full_video):
     new_video.intro = full_video.intro
     new_video.upload_time = full_video.uploadTime
     new_video.key = full_video.keyValue
-    new_video.type = "" ##waiting for changing
+    new_video.type = full_video.type ##waiting for changing
     thumbURL, err = fs.getThumbURL(full_video.keyValue)
     if err!=None:
         new_video.prev = ""

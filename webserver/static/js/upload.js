@@ -10,7 +10,7 @@ $(function(){
 		file_name = $(this).val().match(/[^\\]*$/)[0];
 		if(file_name!=""){
 			file_type=file_name.match(/[^\.]*$/)[0];			
-			if(file_type!="mp4" && file_type!="ogg" && file_type!="webm"){
+			if(file_type!="mp4" && file_type!="ogv" && file_type!="webm"){
 				tip.addClass('error').text("File type not support!").fadeIn('slow').delay(2000).fadeOut('slow');
 			}else{
 				$('input[name=file_type]').val(file_type);

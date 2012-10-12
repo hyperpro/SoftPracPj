@@ -1,3 +1,5 @@
+
+
 var first_in = true;
 
 $(function(){
@@ -35,6 +37,8 @@ $(function(){
 							_tip.removeClass('error');
 						}
 					}
+					$('#pwd_in').val($.md5($('#pwd_in').val()));
+					$('#pwd_cfm_in').val($.md5($('#pwd_cfm_in').val()));
 				}
 			}
 		}

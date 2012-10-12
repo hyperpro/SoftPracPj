@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.1.63, for debian-linux-gnu (i686)
+-- MySQL dump 10.13  Distrib 5.5.24, for debian-linux-gnu (i686)
 --
 -- Host: localhost    Database: videoproject
 -- ------------------------------------------------------
--- Server version	5.1.63-0ubuntu0.11.10.1
+-- Server version	5.5.24-0ubuntu0.12.04.1
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -36,7 +36,6 @@ CREATE TABLE `sessions` (
 
 LOCK TABLES `sessions` WRITE;
 /*!40000 ALTER TABLE `sessions` DISABLE KEYS */;
-INSERT INTO `sessions` VALUES ('2b2bd9d75778c9ed309513f214a367c7413dc1bf','2012-10-07 12:57:16','KGRwMQpTJ2lzX2xvZ2dlZCcKcDIKSTAwCnNTJ2lwJwpwMwpWMTI3LjAuMC4xCnA0CnNTJ3VzZXJp\nZCcKcDUKUydndWVzdCcKcDYKc1Mnc2Vzc2lvbl9pZCcKcDcKUycyYjJiZDlkNzU3NzhjOWVkMzA5\nNTEzZjIxNGEzNjdjNzQxM2RjMWJmJwpwOApzLg==\n'),('d9e147a1a6447c733dc0bc1e627e400b1cc0f3b5','2012-10-07 12:59:19','KGRwMQpTJ2lzX2xvZ2dlZCcKcDIKSTAwCnNTJ2lwJwpwMwpWMTI3LjAuMC4xCnA0CnNTJ3VzZXJp\nZCcKcDUKUydndWVzdCcKcDYKc1Mnc2Vzc2lvbl9pZCcKcDcKUydkOWUxNDdhMWE2NDQ3YzczM2Rj\nMGJjMWU2MjdlNDAwYjFjYzBmM2I1JwpwOApzLg==\n'),('438516617e651369378f25d7d14772ff5f89e2cc','2012-10-08 06:01:25','KGRwMQpTJ2lzX2xvZ2dlZCcKcDIKSTAxCnNTJ2lwJwpwMwpWMTI3LjAuMC4xCnA0CnNTJ3VzZXJp\nZCcKcDUKUyd0ZXN0JwpwNgpzUydzZXNzaW9uX2lkJwpwNwpTJzQzODUxNjYxN2U2NTEzNjkzNzhm\nMjVkN2QxNDc3MmZmNWY4OWUyY2MnCnA4CnMu\n');
 /*!40000 ALTER TABLE `sessions` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -63,7 +62,7 @@ CREATE TABLE `users` (
   UNIQUE KEY `mail` (`mail`),
   UNIQUE KEY `userName_2` (`userName`),
   UNIQUE KEY `mail_2` (`mail`)
-) ENGINE=MyISAM AUTO_INCREMENT=18 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -72,7 +71,6 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (11,'gkjm','gkm','gkm','gkm',0,1,1,'gkm'),(12,'gkm','gkm','agkm','gkm',0,1,1,'gkm'),(13,'m','gm','am','gk',1,1,1,'gkm'),(14,'akgkm','gkm','aaa',NULL,0,0,0,NULL),(15,'akgm','km','aaak',NULL,0,0,0,NULL),(16,'kgm','km','aaako',NULL,0,0,0,NULL),(17,'kgmo','km','alaako',NULL,0,0,0,NULL);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -94,11 +92,12 @@ CREATE TABLE `videos` (
   `recommendCount` mediumint(8) unsigned DEFAULT '0',
   `commentCount` smallint(5) unsigned DEFAULT '0',
   `category` varchar(255) DEFAULT NULL,
+  `type` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`videoId`),
   UNIQUE KEY `videoId` (`videoId`),
   UNIQUE KEY `keyValue` (`keyValue`),
   UNIQUE KEY `keyValue_2` (`keyValue`)
-) ENGINE=MyISAM AUTO_INCREMENT=69 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -107,7 +106,6 @@ CREATE TABLE `videos` (
 
 LOCK TABLES `videos` WRITE;
 /*!40000 ALTER TABLE `videos` DISABLE KEYS */;
-INSERT INTO `videos` VALUES (64,NULL,'gkm','fudan',NULL,'2012-10-09 01:11:37',0,0,0,NULL),(65,NULL,'gkm','fudann',NULL,'2012-10-09 01:12:43',0,0,0,NULL),(66,NULL,'12','k',NULL,'2012-10-09 01:38:54',0,0,0,NULL),(67,NULL,'12','ko',NULL,'2012-10-09 01:39:31',0,0,0,NULL),(68,'f','12','fadudan',NULL,'2012-10-09 01:41:19',1,0,0,NULL);
 /*!40000 ALTER TABLE `videos` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -120,4 +118,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2012-10-09  9:43:56
+-- Dump completed on 2012-10-12 16:01:20

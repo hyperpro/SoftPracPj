@@ -10,6 +10,7 @@ class Video:
 		self.intro = intro
 		self.upload_time = upload_time
 		self.key = key
+		self.type = type
 		self.prev = 'http://g1.ykimg.com/1100641F4650635DC87E4C047ED16BC50B8866-03DE-693F-6FBD-696C566BA4E0'
 		self.src = 'http://labs.3g.youku.com/webapp/cdnProxy?cdn=http%3A%2F%2Ff.youku.com%2Fplayer%2FgetFlvPath%2Fsid%2F134871517784503_01%2Fst%2Fmp4%2Ffileid%2F030008010050635BE9E776047ED16B4864DF85-B20D-C8CC-40BB-E231C3F7D84C%3FK%3Db371d2dde8f19f2e28280425%26hd%3D1'
 
