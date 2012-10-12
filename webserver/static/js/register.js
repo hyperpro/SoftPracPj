@@ -46,7 +46,6 @@ $(function(){
 	});
 
 	$('#submit').on('click', function(){
-		alert($('#pwd_in').val());
 		if($('#register_form .error').length>0){
 			$('#register_form .error').fadeIn('fast').delay(2000).fadeOut('slow');
 			return false;
