@@ -67,7 +67,7 @@ class Login:
             session.login(current_user.userId)
             raise web.seeother('/')
         else:
-            page_info = PageInfo('Login','用户名密码错误！')
+            page_info = PageInfo('Login',error = '用户名密码错误！')
             return render.login(page_info)
             
 
@@ -108,15 +108,14 @@ class Personal:
 
     def GET(self, id):
         page_info = PageInfo('Personal')
-        ##ans!, temp1_user = get_user(session.get_user_id())
-        ##ans2, temp2_user = get_user(session.get_user_id())
-        ##if ans1 and ans2:
-            ##current_user1 = transclass.user_trans(temp1_user)
-            ##current_user2 = transclass.user_trans(temp2_user)
-            ##return render.personal(current_user1, current_user2, page_info)
-        ##else:
-            ##raise web.notfound()
-        return render.personal(default_user, default_user, page_info)
+        ans1, temp1_user = infoDBserver.get_user(session.get_user_id())
+        ans2, temp2_user = infoDBserver.get_user(session.get_user_id())
+        if ans1 and ans2:
+            current_user1 = transclass.user_trans(temp1_user)
+            current_user2 = transclass.user_trans(temp2_user)
+            return render.personal(current_user1, current_user2, page_info)
+        else:
+            raise web.notfound()
 
 
 class Upload:
@@ -147,6 +146,7 @@ class Upload:
     def POST(self, encodedURL):
         uploadURL = base64.urlsafe_b64decode(str(encodedURL))
         x = web.input(up_file={})
+        filename = x['up_file'].filename
         type1 = web.input().file_type
         key, err = fs.putFile(x['up_file'].file, uploadURL)
         if err != None:
@@ -155,11 +155,11 @@ class Upload:
             # do something
             return
         web.debug(key)
-        ans, video = infoDBserver.insert_video(key, session.get_user_id())
-        ans, video2 = infoDBserver.modify_video(video.videoId,type = type1)
+        ans1, video = infoDBserver.insert_video(key, session.get_user_id())
+        ans2, video2 = infoDBserver.modify_video(video.videoId,videoName = filename, type = type1)
         ##waiting for type changing
-        if ans:
-            raise web.seeother('/')
+        if ans2:
+            raise web.seeother('/edit/'+str(video2.videoId))
         else:
             raise web.seeother('/upload')
         # do somthing
@@ -173,8 +173,10 @@ class Video:
         current_video = transclass.video_trans(temp_video)
         ans2, temp_user = infoDBserver.get_user(session.get_user_id())
         current_user = transclass.user_trans(temp_user)
-        if ans1 and ans2:
-            return render.video(current_video,current_user,page_info)
+        ans3, temp_user = infoDBserver.get_user(current_video.onwer)
+        video_owner = transclass.user_trans(temp_user)
+        if ans1 and ans2 and ans3:
+            return render.video(current_video,current_user,video_owner,page_info)
         else:
             raise web.nofound() 
 
@@ -205,8 +207,8 @@ class Edit:
         if ans:
             current_video = transclass.video_trans(temp_video)
             page_info = PageInfo('Edit',message = '保存成功！')
-            return render.edit(current_video,current_user,page_info)
+            raise web.seeother('/video/'+str(current_video.id))
         else:
-            page_info = PageInfo('Edit',err = '保存失败，请再试！')
+            page_info = PageInfo('Edit',error = '保存失败，请再试！')
             return render.edit(current_video,current_user,page_info)
             
