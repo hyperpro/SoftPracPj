@@ -147,6 +147,7 @@ class Upload:
     def POST(self, encodedURL):
         uploadURL = base64.urlsafe_b64decode(str(encodedURL))
         x = web.input(up_file={})
+        type1 = web.input().file_type
         key, err = fs.putFile(x['up_file'].file, uploadURL)
         if err != None:
             web.debug(err)
@@ -155,7 +156,7 @@ class Upload:
             return
         web.debug(key)
         ans, video = infoDBserver.insert_video(key, session.get_user_id())
-        ans, video2 = infoDBserver.modify_video(video.videoId,type = 'ogg') ##owowow
+        ans, video2 = infoDBserver.modify_video(video.videoId,type = type1)
         ##waiting for type changing
         if ans:
             raise web.seeother('/')
