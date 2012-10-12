@@ -35,7 +35,8 @@ $:elements.header(me)
 		<div class="block_content">
 			<h2 id="video_name"></h2>
 			<h4 id="owner"></h4>
-			$:elements.video_play(video)
+			$if me.videos:
+				$:elements.video_play(me.videos[0])
 			<p id="video_intro"></p>
 			<p id="share_one_click">
 			<div class="passit_barDiv"><a class="passit_default" href="http://www.passit.cn/bookmark.html" target="_blank"></a></div>

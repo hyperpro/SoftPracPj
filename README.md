@@ -15,7 +15,7 @@
 
  * 需mysql建表（注意：用户名root密码为空）
 
- 	cd到webserver目录
+ 	cd到infodbserver目录
 
         mysql -u root -p
 
@@ -23,7 +23,7 @@
 
  	ctrl+D退出
 
-        mysql -u root videoproject < videoproject.mysql
+        mysql -u root videoproject < videoproject.sql
 
 
 
