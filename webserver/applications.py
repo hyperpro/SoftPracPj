@@ -173,8 +173,10 @@ class Video:
         current_video = transclass.video_trans(temp_video)
         ans2, temp_user = infoDBserver.get_user(session.get_user_id())
         current_user = transclass.user_trans(temp_user)
-        if ans1 and ans2:
-            return render.video(current_video,current_user,page_info)
+        ans3, temp_user = infoDBserver.get_user(current_video.onwer)
+        video_owner = transclass.user_trans(temp_user)
+        if ans1 and ans2 and ans3:
+            return render.video(current_video,current_user,video_owner,page_info)
         else:
             raise web.nofound() 
 
