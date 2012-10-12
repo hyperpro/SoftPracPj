@@ -48,6 +48,7 @@ ul.inline li{display:inline-block;}
 .highlight{color:#0391c9;}
 .parent_wide{padding:0;width:100%;}
 .shadow{text-shadow:1px 1px 0 #fff;}
+.message,.error{display:block;position:absolute;width:80%;padding:10px;top:20px;left:10%;border:1px dashed #aaaaaa;background-color:#ffffff;z-index:102;}
 .typical_form .input_block{margin:20px 0px 10px;}.typical_form .input_block .form_tip{margin-left:10px;display:none;}
 .typical_form .input_block .error{color:#be3c3c;}
 .typical_form input[type="text"],.typical_form input[type="password"]{padding:5px 10px;}

@@ -271,6 +271,20 @@ ul.inline li{
 	text-shadow: 1px 1px 0 #fff;
 }
 
+.message, .error{
+	display: block;
+	position: absolute;
+	width: 80%;
+	padding: 10px;
+	top: 20px;
+	left: 10%;
+
+	border: 1px dashed @border_color;
+	background-color: @background_color;
+
+	z-index: 102;
+}
+
 .fix(@top: 0){
 	position: fixed;
 	z-index: 101;

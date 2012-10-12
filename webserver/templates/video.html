@@ -1,4 +1,4 @@
-$def with (video, me, page_info)
+$def with (video, me, owner, page_info)
 
 $var info = page_info
 
@@ -7,7 +7,7 @@ $:elements.header(me, video=video)
 <div class="main_content">
 
 	<h2 id="video_name">$video.name</h2>
-	<h4 id="owner">By $video.owner</h4>
+	<h4 id="owner">By $owner.name</h4>
 	<!--
 	<video id="video" src="$video.src" controls="controls" width="640" height="358">Your browser does not support html5, chrome will work.</video>
 -->
